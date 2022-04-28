@@ -47,7 +47,7 @@ public class BorrowerContact {
 
     @Override
     public String toString() {
-        return "BorroweContact{" +
+        return "BorrowerContact{" +
                 "borrowerContactID=" + borrowerContactID +
                 ", borrowerID=" + borrowerID +
                 ", epost='" + epost + '\'' +
