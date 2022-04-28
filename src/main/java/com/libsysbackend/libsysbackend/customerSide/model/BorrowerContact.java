@@ -1,12 +1,12 @@
 package com.libsysbackend.libsysbackend.customerSide.model;
 
-public class BorroweContact {
+public class BorrowerContact {
     private int borrowerContactID;
     private int borrowerID;
     private String epost;
     private String tel;
 
-    public BorroweContact(int borrowerContactID, int borrowerID, String epost, String tel) {
+    public BorrowerContact(int borrowerContactID, int borrowerID, String epost, String tel) {
         this.borrowerContactID = borrowerContactID;
         this.borrowerID = borrowerID;
         this.epost = epost;
