@@ -1,40 +1,48 @@
 package com.libsysbackend.libsysbackend.Book;
 
-import com.google.gson.Gson;
-import com.libsysbackend.libsysbackend.Author.Author;
-import com.libsysbackend.libsysbackend.Genre.Genre;
-import com.libsysbackend.libsysbackend.Author.AuthorService;
-import com.libsysbackend.libsysbackend.Genre.GenreService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BookController {
 
-	@Autowired
-	BookService bookService;
+	private final BookService bookService;
 
-	//GET
-	@GetMapping("getBook/byISBN")
-	public String getBookByISBN(@RequestParam("value")int isbn_in){
+	public BookController(BookService bookService) {
+		this.bookService = bookService;
+	}
+
+	@GetMapping("get/bookByISBN")
+	public String getBookByISBN(@RequestParam("value")String isbn_in){
 		return this.bookService.getBookByISBN(isbn_in);
 	}
 
-	@GetMapping("getBooks/byGenre")
+	@GetMapping("get/booksById")
 	public String getBooksByGenre(@RequestParam ("id")int id_in){
 		return this.bookService.getAllBooksByGenre(id_in);
 	}
 
-	@GetMapping("getBooks/byAuthor")
+	@GetMapping("get/booksByAuthorId")
 	public String getBooksByAuthor(@RequestParam("Id") int id_in){
 		return this.bookService.getAllBooksByAuthor(id_in);
 	}
 
-	@GetMapping("getBooks/all")
+	@GetMapping("get/allBooks")
 	public String getAllBooks(){
 		return this.bookService.getAllBooks();
 	}
-	//END OF GET
+
+	@PutMapping("put/bookByISBN")
+	public String updateBookByISBN(@RequestParam("isbn") String isbn_in,
+	                               @RequestParam("title") String newtTitle,
+	                               @RequestParam("desc") String newBookDesc,
+	                               @RequestParam("authorId") int newAuthorId,
+	                               @RequestParam("genreId") int newGenreId,
+	                               @RequestParam("amount") int newAmount)
+	{
+		return this.bookService.updateBookByISBN(isbn_in, newtTitle, newBookDesc, newAuthorId, newGenreId, newAmount);
+	}
+
 }

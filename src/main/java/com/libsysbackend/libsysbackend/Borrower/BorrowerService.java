@@ -1,13 +1,16 @@
 package com.libsysbackend.libsysbackend.Borrower;
 
-import com.libsysbackend.libsysbackend.Borrower.BorrowerDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BorrowerService {
+public record BorrowerService(BorrowerDAO borrowerDAO) {
 
-    @Autowired
-    BorrowerDAO borrowerDAO;
+    public String getAllBorrowers() {
+        return this.borrowerDAO.getAllBorrowers();
+    }
+
+    public String getBorrowerBySSN(String ssn_in) {
+        return this.borrowerDAO.getBorrowerBySSN(ssn_in);
+    }
 
 }
