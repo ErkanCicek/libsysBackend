@@ -1,30 +1,30 @@
-package com.libsysbackend.libsysbackend.customerSide.model;
+package com.libsysbackend.libsysbackend.Book;
 
 public class Book {
-	private int bookID;
+	private String ISBN;
 	private String title;
 	private String bookDesc;
 	private int authorID;
 	private int genreID;
+	private int amount;
 	private boolean isBookAvailable;
-	private String ISBN;
 
-	public Book(int bookID, String title, String bookDesc, int authorID, int genreID, String ISBN) {
-		this.bookID = bookID;
+	public Book(String ISBN, String title, String bookDesc, int authorID, int genreID, int amount) {
+		this.ISBN = ISBN;
 		this.title = title;
 		this.bookDesc = bookDesc;
 		this.authorID = authorID;
 		this.genreID = genreID;
-		this.ISBN = ISBN;
+		this.amount = amount;
 		isBookAvailable = true;
 	}
 
-	public int getBookID() {
-		return bookID;
+	public String getISBN() {
+		return ISBN;
 	}
 
-	public void setBookID(int bookID) {
-		this.bookID = bookID;
+	public void setISBN(String ISBN) {
+		this.ISBN = ISBN;
 	}
 
 	public String getTitle() {
@@ -59,6 +59,14 @@ public class Book {
 		this.genreID = genreID;
 	}
 
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
 	public boolean isBookAvailable() {
 		return isBookAvailable;
 	}
@@ -67,24 +75,16 @@ public class Book {
 		isBookAvailable = bookAvailable;
 	}
 
-	public String getISBN() {
-		return ISBN;
-	}
-
-	public void setISBN(String ISBN) {
-		this.ISBN = ISBN;
-	}
-
 	@Override
 	public String toString() {
 		return "Book{" +
-				"bookID=" + bookID +
+				"ISBN='" + ISBN + '\'' +
 				", title='" + title + '\'' +
 				", bookDesc='" + bookDesc + '\'' +
 				", authorID=" + authorID +
 				", genreID=" + genreID +
+				", amount=" + amount +
 				", isBookAvailable=" + isBookAvailable +
-				", ISBN='" + ISBN + '\'' +
 				'}';
 	}
 }

@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.customerSide.model;
+package com.libsysbackend.libsysbackend.Genre;
 
 public class Genre {
 	private int genreID;

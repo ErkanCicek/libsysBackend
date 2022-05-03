@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.customerSide.model;
+package com.libsysbackend.libsysbackend.Borrower;
 
 public class BorrowerContact {
     private int borrowerContactID;

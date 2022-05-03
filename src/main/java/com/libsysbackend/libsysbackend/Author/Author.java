@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.customerSide.model;
+package com.libsysbackend.libsysbackend.Author;
 
 public class Author {
 	private int authorID;
