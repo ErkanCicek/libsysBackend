@@ -1,15 +1,16 @@
-package com.libsysbackend.libsysbackend.customerSide.dao;
+package com.libsysbackend.libsysbackend.Author;
 
 
 import com.google.gson.Gson;
-import com.libsysbackend.libsysbackend.customerSide.model.Author;
+import com.libsysbackend.libsysbackend.Author.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -33,6 +34,20 @@ public class AuthorDAO {
                 rs.getString("authorName")
         ), authorName_in);
         return new Gson().toJson(author);
+    }
+    public String getAllAuthors(){
+        String query = "SELECT * FROM author";
+        ArrayList<Author>authors = new ArrayList<>();
+        List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(query);
+
+        for (Map<String, Object> row : rows){
+            Author author = new Author(
+                    (Integer) row.get("authorID"),
+                    (String) row.get("authorName")
+            );
+            authors.add(author);
+        }
+        return new Gson().toJson(authors);
     }
 
 }

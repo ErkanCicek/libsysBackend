@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.customerSide.model;
+package com.libsysbackend.libsysbackend.Room;
 
 import com.google.gson.Gson;
 

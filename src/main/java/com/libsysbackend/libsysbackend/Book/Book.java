@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.customerSide.model;
+package com.libsysbackend.libsysbackend.Book;
 
 public class Book {
 	private String ISBN;

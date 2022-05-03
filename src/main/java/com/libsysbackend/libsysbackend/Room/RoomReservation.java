@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.customerSide.model;
+package com.libsysbackend.libsysbackend.Room;
 
 import com.google.gson.Gson;
 
@@ -6,18 +6,15 @@ import java.util.Arrays;
 
 public class RoomReservation {
 	private int roomReservationID;
-	private int RoomID;
+	private int roomID;
 	private String date;
 	private int[]timeArray;
-	private int borrowerId;
 
-	public RoomReservation(int roomReservationID, int roomID, String date, String timeArray, int borrowerId) {
-		Gson gson = new Gson();
+	public RoomReservation(int roomReservationID, int roomID, String date, String timeJson) {
 		this.roomReservationID = roomReservationID;
-		this.RoomID = roomID;
+		this.roomID = roomID;
 		this.date = date;
-		this.timeArray = gson.fromJson(timeArray, int[].class);
-		this.borrowerId = borrowerId;
+		this.timeArray = new Gson().fromJson(timeJson, int[].class);
 	}
 
 	public int getRoomReservationID() {
@@ -29,11 +26,11 @@ public class RoomReservation {
 	}
 
 	public int getRoomID() {
-		return RoomID;
+		return roomID;
 	}
 
 	public void setRoomID(int roomID) {
-		RoomID = roomID;
+		this.roomID = roomID;
 	}
 
 	public String getDate() {
@@ -52,22 +49,13 @@ public class RoomReservation {
 		this.timeArray = timeArray;
 	}
 
-	public int getBorrowerId() {
-		return borrowerId;
-	}
-
-	public void setBorrowerId(int borrowerId) {
-		this.borrowerId = borrowerId;
-	}
-
 	@Override
 	public String toString() {
 		return "RoomReservation{" +
 				"roomReservationID=" + roomReservationID +
-				", RoomID=" + RoomID +
+				", roomID=" + roomID +
 				", date='" + date + '\'' +
 				", timeArray=" + Arrays.toString(timeArray) +
-				", borrowerId=" + borrowerId +
 				'}';
 	}
 }

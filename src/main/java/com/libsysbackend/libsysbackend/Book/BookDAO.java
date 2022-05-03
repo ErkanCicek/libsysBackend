@@ -1,7 +1,6 @@
-package com.libsysbackend.libsysbackend.customerSide.dao;
+package com.libsysbackend.libsysbackend.Book;
 
 import com.google.gson.Gson;
-import com.libsysbackend.libsysbackend.customerSide.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,7 +15,6 @@ public class BookDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-
 	public String getBookByISBN(int isbn_in){
 		String query = "Select * From Book Where ISBN = ? And isBookAvailable = 1";
 		Book book = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Book(
@@ -29,7 +27,6 @@ public class BookDAO {
 		), isbn_in);
 		return new Gson().toJson(book);
 	}
-
 	public String getAllBooksByGenre(int genreId_in){
 		String query = "SELECT * FROM book where genreID = " + genreId_in;
 		ArrayList<Book>books = new ArrayList<>();
@@ -48,7 +45,6 @@ public class BookDAO {
 		}
 		return new Gson().toJson(books);
 	}
-
 	public String getAllBooksByAuthorId(int authorId_in){
 		String query = "SELECT * FROM book WHERE authorID = " + authorId_in;
 		ArrayList<Book>books = new ArrayList<>();
@@ -67,7 +63,6 @@ public class BookDAO {
 		}
 		return new Gson().toJson(books);
 	}
-
 	public String getAllBooks(){
 		String query = "SELECT * FROM book";
 		ArrayList<Book>books = new ArrayList<>();
