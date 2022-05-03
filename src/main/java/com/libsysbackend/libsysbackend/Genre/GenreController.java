@@ -14,17 +14,17 @@ public class GenreController {
 	@Autowired
 	GenreService genreService;
 
-	@GetMapping("getGenre/all")
+	@GetMapping("get/allGenres")
 	public String getAllGenre(){
 		return this.genreService.getAllGenre();
 	}
 
-	@GetMapping("getGenre/byName")
+	@GetMapping("get/genreByName")
 	public String getGenreByName(@RequestParam("value") String genreName_in){
 		return this.genreService.getGenreByName(new URLEncoder().encode(genreName_in, StandardCharsets.UTF_8));
 	}
 
-	@GetMapping("getGenre/byId")
+	@GetMapping("get/genreById")
 	public String getGenreById(int id_in){
 		return this.genreService.getGenreById(id_in);
 	}

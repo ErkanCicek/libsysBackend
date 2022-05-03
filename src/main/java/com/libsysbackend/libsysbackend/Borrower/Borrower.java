@@ -1,40 +1,44 @@
 package com.libsysbackend.libsysbackend.Borrower;
 
 public class Borrower {
-    private int borrowerID;
-    private String name;
-    private String lastName;
+    private int borrowerId;
+    private String surname;
+    private String lastname;
     private String SSN;
+    private String email;
+    private String tel;
 
-    public Borrower(int borrowerID, String name, String lastName, String SSN) {
-        this.borrowerID = borrowerID;
-        this.name = name;
-        this.lastName = lastName;
+    public Borrower(int borrowerId, String surname, String lastname, String SSN, String email, String tel) {
+        this.borrowerId = borrowerId;
+        this.surname = surname;
+        this.lastname = lastname;
         this.SSN = SSN;
+        this.email = email;
+        this.tel = tel;
     }
 
-    public int getBorrowerID() {
-        return borrowerID;
+    public int getBorrowerId() {
+        return borrowerId;
     }
 
-    public void setBorrowerID(int borrowerID) {
-        this.borrowerID = borrowerID;
+    public void setBorrowerId(int borrowerId) {
+        this.borrowerId = borrowerId;
     }
 
-    public String getName() {
-        return name;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getSSN() {
@@ -45,13 +49,31 @@ public class Borrower {
         this.SSN = SSN;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
     @Override
     public String toString() {
         return "Borrower{" +
-                "borrowerID=" + borrowerID +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "borrowerId=" + borrowerId +
+                ", surname='" + surname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", SSN='" + SSN + '\'' +
+                ", email='" + email + '\'' +
+                ", tel='" + tel + '\'' +
                 '}';
     }
 }

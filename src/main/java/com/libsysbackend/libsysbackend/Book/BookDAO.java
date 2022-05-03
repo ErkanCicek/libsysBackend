@@ -12,10 +12,13 @@ import java.util.Map;
 @Repository
 public class BookDAO {
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
-	public String getBookByISBN(int isbn_in){
+	public BookDAO(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	public String getBookByISBN(String isbn_in){
 		String query = "Select * From Book Where ISBN = ? And isBookAvailable = 1";
 		Book book = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Book(
 				rs.getString("ISBN"),
@@ -81,4 +84,20 @@ public class BookDAO {
 		}
 		return new Gson().toJson(books);
 	}
+	/*
+	public String deleteBookByISBN(String isbn_in){
+		String query = "DELETE FROM book WHERE book.ISBN = ?";
+		if (this.jdbcTemplate.update(query, isbn_in) > 0){
+			return "book deleted";
+		}
+		return "book could not be deleted";
+	} //NOT IN USE*/ //METHOD NOT IN USE
+	public String updateBookByISBN(String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId, int newAmount){
+		String query = "UPDATE book SET title = ?, bookdesc = ?, authorid = ?, genreId=?, amount = ? WHERE isbn = ?;";
+		if (this.jdbcTemplate.update(query,newtTitle, newBookDesc, newAuthorId, newGenreId, newAmount, isbn_in) > 0){
+			return "book updated";
+		}
+		return "could not update book";
+	}
+
 }
