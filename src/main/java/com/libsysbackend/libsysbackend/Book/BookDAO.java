@@ -84,6 +84,15 @@ public class BookDAO {
 		}
 		return new Gson().toJson(books);
 	}
+	public String insertBook(String isbn_in, String title, String bookDesc, int authorID, int genreID, int amount){
+		String query = "INSERT IGNORE INTO book(isbn, title, bookdesc, authorid, genreid, amount, isbookavailable) VALUE (?,?,?,?,?,?,?)";
+		if (this.jdbcTemplate.update(query, isbn_in, title, bookDesc, authorID, genreID, amount, true) > 0){
+			return "book has been added to the database";
+		}else{
+			return "could not add book: " +
+					"this book already exists";
+		}
+	}
 	/*
 	public String deleteBookByISBN(String isbn_in){
 		String query = "DELETE FROM book WHERE book.ISBN = ?";

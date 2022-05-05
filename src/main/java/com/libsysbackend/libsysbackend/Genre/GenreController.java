@@ -3,12 +3,14 @@ package com.libsysbackend.libsysbackend.Genre;
 import org.apache.catalina.util.URLEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
 
 @RestController
+@RequestMapping("genre/")
 public class GenreController {
 
 	@Autowired

@@ -24,4 +24,8 @@ public record BookService(BookDAO bookDAO) {
 	public String updateBookByISBN(String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId, int newAmount){
 		return this.bookDAO.updateBookByISBN(isbn_in, newtTitle, newBookDesc, newAuthorId, newGenreId, newAmount);
 	}
+
+	public String insertBook(String isbn_in, String title, String bookDesc, int authorID, int genreID, int amount){
+		return bookDAO.insertBook(isbn_in, title, bookDesc, authorID, genreID, amount);
+	}
 }
