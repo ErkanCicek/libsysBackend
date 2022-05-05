@@ -2,6 +2,9 @@ package com.libsysbackend.libsysbackend.Borrower;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @RestController
 @RequestMapping("borrower/")
 public class BorrowerController {
@@ -20,9 +23,12 @@ public class BorrowerController {
     public String getBorrowerBySSN(@RequestParam("value")String ssn_in){
         return this.borrowerService.getBorrowerBySSN(ssn_in);
     }
-    @PutMapping("put/borrwerBySSN")
-    public String updateBorrowerBySSN(@RequestParam("value")String ssn_in, @RequestParam("newEpost") String newEpost_in, @RequestParam("newTel") String newTel_in){
-        return this.borrowerService.updateBorrowerBySSN(ssn_in, newEpost_in, newTel_in);
+    @PutMapping("put/borrwerContactBySSN")
+    public String updateBorrowerContactBySSN(@RequestParam("value")String ssn_in, @RequestParam("newEpost") String newEpost_in, @RequestParam("newTel") String newTel_in){
+        return this.borrowerService.updateBorrowerContactBySSN(ssn_in, URLEncoder.encode(newEpost_in, StandardCharsets.UTF_8), newTel_in);
     }
-
+    @PutMapping("put/borrwerPasswordBySSN")
+    public String updateBorrowerPasswordBySSN(@RequestParam("ssnValue") String ssn_in, @RequestParam("newPass") String newPass_in){
+        return this.borrowerService.updateBorrowerPasswordBySSN(ssn_in, URLEncoder.encode(newPass_in, StandardCharsets.UTF_8));
+    }
 }

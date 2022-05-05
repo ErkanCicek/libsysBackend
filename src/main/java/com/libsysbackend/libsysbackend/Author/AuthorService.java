@@ -21,7 +21,7 @@ public record AuthorService(AuthorDAO authorDAO) {
 	}
 
 	public String insertNewAuthor(String author_in) {
-		return this.authorDAO.insertNewAuthor(author_in);
+		return this.authorDAO.insertNewAuthor(URLDecoder.decode(author_in, StandardCharsets.UTF_8));
 	}
 
 	public String deleteAuthorById(int id_in) {
@@ -29,6 +29,6 @@ public record AuthorService(AuthorDAO authorDAO) {
 	}
 
 	public String updateAuthorById(String newAuthorName_in, int id_in){
-		return this.authorDAO.updateAuthorById(newAuthorName_in,id_in);
+		return this.authorDAO.updateAuthorById(URLDecoder.decode(newAuthorName_in, StandardCharsets.UTF_8),id_in);
 	}
 }

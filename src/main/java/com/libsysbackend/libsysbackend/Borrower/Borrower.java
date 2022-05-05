@@ -8,8 +8,9 @@ public class Borrower {
     private String email;
     private String tel;
     private String role;
+    private String password;
 
-    public Borrower(int borrowerId, String surname, String lastname, String SSN, String email, String tel, String role) {
+    public Borrower(int borrowerId, String surname, String lastname, String SSN, String email, String tel, String role, String password) {
         this.borrowerId = borrowerId;
         this.surname = surname;
         this.lastname = lastname;
@@ -17,6 +18,7 @@ public class Borrower {
         this.email = email;
         this.tel = tel;
         this.role = role;
+        this.password = password;
     }
 
     public int getBorrowerId() {
@@ -75,6 +77,14 @@ public class Borrower {
         this.role = role;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Borrower{" +
@@ -85,6 +95,7 @@ public class Borrower {
                 ", email='" + email + '\'' +
                 ", tel='" + tel + '\'' +
                 ", role='" + role + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
