@@ -59,7 +59,7 @@ public class AuthorDAO {
     }
     public String insertNewAuthor(String name_in){
         String query = "INSERT IGNORE INTO author(authorName) value (?)";
-            if (this.jdbcTemplate.update(query, URLDecoder.decode(name_in, StandardCharsets.UTF_8)) > 0) {
+            if (this.jdbcTemplate.update(query, name_in) > 0) {
                 return "author added";
             }
         return "author already exists";

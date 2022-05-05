@@ -1,12 +1,16 @@
 package com.libsysbackend.libsysbackend.Book;
 
+import org.apache.catalina.util.URLEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("book/")
 public class BookController {
 
 	private final BookService bookService;
+	private final URLEncoder encoder = new URLEncoder();
 
 	public BookController(BookService bookService) {
 		this.bookService = bookService;
@@ -40,7 +44,7 @@ public class BookController {
 	                               @RequestParam("genreId") int newGenreId,
 	                               @RequestParam("amount") int newAmount)
 	{
-		return this.bookService.updateBookByISBN(isbn_in, newtTitle, newBookDesc, newAuthorId, newGenreId, newAmount);
+		return this.bookService.updateBookByISBN(isbn_in, encoder.encode(newtTitle, StandardCharsets.UTF_8), encoder.encode(newBookDesc, StandardCharsets.UTF_8), newAuthorId, newGenreId, newAmount);
 	}
 
 	@PostMapping("post/newBook")
@@ -52,7 +56,7 @@ public class BookController {
 			@RequestParam("genreIdValue") int genreId_in,
 			@RequestParam("amountValue") int amount_in
 	){
-		return this.bookService.insertBook(isbn_in, title_in, bookDesc_in, authorId_in, genreId_in, amount_in);
+		return this.bookService.insertBook(isbn_in,encoder.encode(title_in, StandardCharsets.UTF_8) , encoder.encode(bookDesc_in, StandardCharsets.UTF_8), authorId_in, genreId_in, amount_in);
 	}
 
 }
