@@ -1,7 +1,6 @@
 package com.libsysbackend.libsysbackend.Book;
 
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -83,6 +82,15 @@ public class BookDAO {
 			books.add(book);
 		}
 		return new Gson().toJson(books);
+	}
+	public String insertBook(String isbn_in, String title, String bookDesc, int authorID, int genreID, int amount){
+		String query = "INSERT IGNORE INTO book(isbn, title, bookdesc, authorid, genreid, amount, isbookavailable) VALUE (?,?,?,?,?,?,?)";
+		if (this.jdbcTemplate.update(query, isbn_in, title, bookDesc, authorID, genreID, amount, true) > 0){
+			return "book has been added to the database";
+		}else{
+			return "could not add book: " +
+					"this book already exists";
+		}
 	}
 	/*
 	public String deleteBookByISBN(String isbn_in){

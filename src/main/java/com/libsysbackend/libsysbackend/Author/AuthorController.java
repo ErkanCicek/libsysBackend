@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.charset.StandardCharsets;
 
 @RestController
+@RequestMapping("author/")
 public class AuthorController {
 
 	private final AuthorService authorService;
