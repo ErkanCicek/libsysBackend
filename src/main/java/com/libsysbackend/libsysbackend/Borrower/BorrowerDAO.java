@@ -1,6 +1,7 @@
 package com.libsysbackend.libsysbackend.Borrower;
 
 import com.google.gson.Gson;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -67,5 +68,16 @@ public class BorrowerDAO {
         }
     }
 
+     public Boolean verifyBorrower(String ssn_in, String password){
+        String query = "select borrower.borrowerID from borrower inner join borrowercredentials on borrower.SSN = ? and borrowercredentials.borrowerPassword = ?";
 
+        try {
+            Borrower borrower = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Borrower(
+                    rs.getInt("borrowerID")
+            ), ssn_in, password);
+        } catch (EmptyResultDataAccessException e){
+            return false;
+        }
+        return true;
+    }
 }
