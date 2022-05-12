@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Book;
+package com.libsysbackend.libsysbackend.entity.Book;
 
 import org.springframework.stereotype.Service;
 

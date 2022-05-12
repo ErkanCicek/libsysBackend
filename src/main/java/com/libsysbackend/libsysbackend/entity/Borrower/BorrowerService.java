@@ -1,5 +1,6 @@
-package com.libsysbackend.libsysbackend.Borrower;
+package com.libsysbackend.libsysbackend.entity.Borrower;
 
+import com.libsysbackend.libsysbackend.entity.Borrower.BorrowerDAO;
 import org.springframework.stereotype.Service;
 
 import java.net.URLDecoder;

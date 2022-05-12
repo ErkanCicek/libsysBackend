@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Book;
+package com.libsysbackend.libsysbackend.entity.Book;
 
 import com.google.gson.Gson;
 import org.springframework.jdbc.core.JdbcTemplate;

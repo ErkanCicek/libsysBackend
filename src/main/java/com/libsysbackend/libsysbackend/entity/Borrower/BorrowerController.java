@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Borrower;
+package com.libsysbackend.libsysbackend.entity.Borrower;
 
 import org.springframework.web.bind.annotation.*;
 

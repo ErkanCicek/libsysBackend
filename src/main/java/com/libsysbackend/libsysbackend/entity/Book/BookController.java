@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Book;
+package com.libsysbackend.libsysbackend.entity.Book;
 
 import org.apache.catalina.util.URLEncoder;
 import org.springframework.web.bind.annotation.*;

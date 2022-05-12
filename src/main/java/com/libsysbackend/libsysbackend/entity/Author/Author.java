@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Author;
+package com.libsysbackend.libsysbackend.entity.Author;
 
 public class Author {
 	private int authorID;

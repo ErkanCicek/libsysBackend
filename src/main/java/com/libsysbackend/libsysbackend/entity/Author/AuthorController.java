@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Author;
+package com.libsysbackend.libsysbackend.entity.Author;
 
 import org.apache.catalina.util.URLEncoder;
 import org.springframework.web.bind.annotation.*;

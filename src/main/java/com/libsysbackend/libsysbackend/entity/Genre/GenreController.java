@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Genre;
+package com.libsysbackend.libsysbackend.entity.Genre;
 
 import org.apache.catalina.util.URLEncoder;
 import org.springframework.beans.factory.annotation.Autowired;

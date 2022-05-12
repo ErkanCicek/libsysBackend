@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Borrower;
+package com.libsysbackend.libsysbackend.entity.Borrower;
 
 public class Borrower {
     private int borrowerId;
