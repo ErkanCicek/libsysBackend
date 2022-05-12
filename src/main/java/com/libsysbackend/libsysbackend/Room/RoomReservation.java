@@ -17,6 +17,7 @@ public class RoomReservation {
 		this.timeArray = new Gson().fromJson(timeJson, int[].class);
 	}
 
+
 	public int getRoomReservationID() {
 		return roomReservationID;
 	}
