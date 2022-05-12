@@ -21,6 +21,10 @@ public class Borrower {
         this.password = password;
     }
 
+    public Borrower(int borrowerId) {
+        this.borrowerId = borrowerId;
+    }
+
     public int getBorrowerId() {
         return borrowerId;
     }

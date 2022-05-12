@@ -31,4 +31,9 @@ public class BorrowerController {
     public String updateBorrowerPasswordBySSN(@RequestParam("ssnValue") String ssn_in, @RequestParam("newPass") String newPass_in){
         return this.borrowerService.updateBorrowerPasswordBySSN(ssn_in, URLEncoder.encode(newPass_in, StandardCharsets.UTF_8));
     }
+
+    @GetMapping("get/verifyBorrower")
+    public Boolean verifyBorrower(@RequestParam("SSN")String ssn_in, @RequestParam("password")String password){
+        return this.borrowerService.verifyBorrower(ssn_in, password);
+    }
 }

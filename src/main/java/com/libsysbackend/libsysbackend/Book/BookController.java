@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@RequestMapping("book/")
+@RequestMapping(value = "book/", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class BookController {
 
 	private final BookService bookService;

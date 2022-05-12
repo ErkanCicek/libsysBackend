@@ -1,5 +1,6 @@
 package com.libsysbackend.libsysbackend.Borrower;
 
+import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
 import java.net.URLDecoder;
@@ -19,6 +20,10 @@ public record BorrowerService(BorrowerDAO borrowerDAO) {
     }
     public String updateBorrowerPasswordBySSN(String ssn_in, String newPassword_in){
         return this.borrowerDAO.updateBorrowerPasswordBySSN(ssn_in, URLDecoder.decode(newPassword_in, StandardCharsets.UTF_8));
+    }
+
+    public Boolean verifyBorrower(String ssn_id, String password){
+        return this.borrowerDAO.verifyBorrower(ssn_id, password);
     }
 
 }
