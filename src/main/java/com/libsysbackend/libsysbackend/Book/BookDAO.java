@@ -113,4 +113,12 @@ public class BookDAO {
 		return "could not update book";
 	}
 
+	public String updateBookByISBN2(String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId, int newAmount, boolean isBookAvailable){
+		String query = "UPDATE book SET title = ?, bookdesc = ?, authorid = ?, genreId=?, amount = ?, isBookAvailable = ? WHERE isbn = ?;";
+		if (this.jdbcTemplate.update(query,newtTitle, newBookDesc, newAuthorId, newGenreId, newAmount, isBookAvailable, isbn_in) > 0){
+			return "book updated";
+		}
+		return "could not update book";
+	}
+
 }

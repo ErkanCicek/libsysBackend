@@ -3,14 +3,15 @@ package com.libsysbackend.libsysbackend.BorrowedBooks;
 public class BorrowedBooks {
     private int borrowedBooksID;
     private String returnDate;
-    private String SSN;
-    private String ISBN;
+    private String bookISBN;
+    private String borrowerSSN;
 
-    public BorrowedBooks(int borrowedBooksID, String returnDate, String SSN, String ISBN) {
+
+    public BorrowedBooks(int borrowedBooksID, String returnDate, String bookISBN, String borrowerSSN) {
         this.borrowedBooksID = borrowedBooksID;
         this.returnDate = returnDate;
-        this.SSN = SSN;
-        this.ISBN = ISBN;
+        this.bookISBN = bookISBN;
+        this.borrowerSSN = borrowerSSN;
     }
 
     public int getBorrowedBooksID() {
@@ -29,20 +30,20 @@ public class BorrowedBooks {
         this.returnDate = returnDate;
     }
 
-    public String getSSN() {
-        return SSN;
+    public String getBookISBN() {
+        return bookISBN;
     }
 
-    public void setSSN(String SSN) {
-        this.SSN = SSN;
+    public void setBookISBN(String bookISBN) {
+        this.bookISBN = bookISBN;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getBorrowerSSN() {
+        return borrowerSSN;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setBorrowerSSN(String borrowerSSN) {
+        this.borrowerSSN = borrowerSSN;
     }
 
     @Override
@@ -50,8 +51,8 @@ public class BorrowedBooks {
         return "BorrowedBooks{" +
                 "borrowedBooksID=" + borrowedBooksID +
                 ", returnDate='" + returnDate + '\'' +
-                ", SSN='" + SSN + '\'' +
-                ", ISBN='" + ISBN + '\'' +
+                ", bookISBN='" + bookISBN + '\'' +
+                ", borrowerSSN='" + borrowerSSN + '\'' +
                 '}';
     }
 }
