@@ -1,7 +1,7 @@
-package com.libsysbackend.libsysbackend.entity.Borrower;
+package com.libsysbackend.libsysbackend.Borrower;
 
 import com.google.gson.Gson;
-import com.libsysbackend.libsysbackend.entity.Borrower.Borrower;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -38,7 +38,7 @@ public class BorrowerDAO {
         }
         return new Gson().toJson(borrowers);
     }
-    public String getBorrowerBySSN(String ssn_in)       {
+    public String getBorrowerBySSN(String ssn_in){
         String query = "select borrower.borrowerID, borrower.name, borrower.lastName, borrower.SSN, borrowercontact.epost, borrowercontact.tel, borrower.role, borrowercredentials.borrowerPassword from (( borrower inner join borrowercontact on borrower.borrowerID = borrowercontact.borrowerContactID) inner join borrowercredentials on borrower.borrowerID = borrowercredentials.borrower_BorrowerID) where borrower.SSN = ?";
         Borrower borrower = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Borrower(
                 rs.getInt("borrowerID"),
@@ -68,5 +68,16 @@ public class BorrowerDAO {
         }
     }
 
+     public Boolean verifyBorrower(String ssn_in, String password){
+        String query = "select borrower.borrowerID from borrower inner join borrowercredentials on borrower.SSN = ? and borrowercredentials.borrowerPassword = ?";
 
+        try {
+            Borrower borrower = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Borrower(
+                    rs.getInt("borrowerID")
+            ), ssn_in, password);
+        } catch (EmptyResultDataAccessException e){
+            return false;
+        }
+        return true;
+    }
 }

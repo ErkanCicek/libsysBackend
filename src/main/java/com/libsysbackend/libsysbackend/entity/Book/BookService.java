@@ -31,4 +31,8 @@ public record BookService(BookDAO bookDAO) {
 	public String insertBook(String isbn_in, String title, String bookDesc, int authorID, int genreID, int amount){
 		return bookDAO.insertBook(isbn_in, URLDecoder.decode(title, StandardCharsets.UTF_8), URLDecoder.decode(bookDesc, StandardCharsets.UTF_8), authorID, genreID, amount);
 	}
+
+	public String updateBookByISBN2(String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId, int newAmount, boolean isBookAvailable){
+		return this.bookDAO.updateBookByISBN2(isbn_in, URLDecoder.decode(newtTitle, StandardCharsets.UTF_8), URLDecoder.decode(newBookDesc, StandardCharsets.UTF_8), newAuthorId, newGenreId, newAmount, isBookAvailable);
+	}
 }

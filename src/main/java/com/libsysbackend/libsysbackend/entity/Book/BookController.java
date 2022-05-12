@@ -3,10 +3,11 @@ package com.libsysbackend.libsysbackend.entity.Book;
 import org.apache.catalina.util.URLEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@RequestMapping("book/")
+@RequestMapping(value = "book/", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class BookController {
 
 	private final BookService bookService;
@@ -45,6 +46,18 @@ public class BookController {
 	                               @RequestParam("amount") int newAmount)
 	{
 		return this.bookService.updateBookByISBN(isbn_in, encoder.encode(newtTitle, StandardCharsets.UTF_8), encoder.encode(newBookDesc, StandardCharsets.UTF_8), newAuthorId, newGenreId, newAmount);
+	}
+
+	@PutMapping("put/bookByISBN2")
+	public String updateBookByISBN2(@RequestParam("isbn") String isbn_in,
+								   @RequestParam("title") String newtTitle,
+								   @RequestParam("desc") String newBookDesc,
+								   @RequestParam("authorId") int newAuthorId,
+								   @RequestParam("genreId") int newGenreId,
+								   @RequestParam("amount") int newAmount,
+									@RequestParam("Available")boolean isBookAvailable)
+	{
+		return this.bookService.updateBookByISBN2(isbn_in, encoder.encode(newtTitle, StandardCharsets.UTF_8), encoder.encode(newBookDesc, StandardCharsets.UTF_8), newAuthorId, newGenreId, newAmount, isBookAvailable);
 	}
 
 	@PostMapping("post/newBook")

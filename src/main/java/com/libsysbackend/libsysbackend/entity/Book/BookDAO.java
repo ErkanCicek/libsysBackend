@@ -1,6 +1,7 @@
 package com.libsysbackend.libsysbackend.entity.Book;
 
 import com.google.gson.Gson;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,16 +19,20 @@ public class BookDAO {
 	}
 
 	public String getBookByISBN(String isbn_in){
-		String query = "Select * From Book Where ISBN = ? And isBookAvailable = 1";
-		Book book = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Book(
-				rs.getString("ISBN"),
-				rs.getString("title"),
-				rs.getString("bookDesc"),
-				rs.getInt("authorID"),
-				rs.getInt("genreID"),
-				rs.getInt("amount")
-		), isbn_in);
-		return new Gson().toJson(book);
+		try {
+			String query = "Select * From Book Where ISBN = ? And isBookAvailable = 1";
+			Book book = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Book(
+					rs.getString("ISBN"),
+					rs.getString("title"),
+					rs.getString("bookDesc"),
+					rs.getInt("authorID"),
+					rs.getInt("genreID"),
+					rs.getInt("amount")
+			), isbn_in);
+			return new Gson().toJson(book);
+		} catch (EmptyResultDataAccessException e){
+			return "boken finns ej";
+		}
 	}
 	public String getAllBooksByGenre(int genreId_in){
 		String query = "SELECT * FROM book where genreID = " + genreId_in;
@@ -103,6 +108,14 @@ public class BookDAO {
 	public String updateBookByISBN(String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId, int newAmount){
 		String query = "UPDATE book SET title = ?, bookdesc = ?, authorid = ?, genreId=?, amount = ? WHERE isbn = ?;";
 		if (this.jdbcTemplate.update(query,newtTitle, newBookDesc, newAuthorId, newGenreId, newAmount, isbn_in) > 0){
+			return "book updated";
+		}
+		return "could not update book";
+	}
+
+	public String updateBookByISBN2(String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId, int newAmount, boolean isBookAvailable){
+		String query = "UPDATE book SET title = ?, bookdesc = ?, authorid = ?, genreId=?, amount = ?, isBookAvailable = ? WHERE isbn = ?;";
+		if (this.jdbcTemplate.update(query,newtTitle, newBookDesc, newAuthorId, newGenreId, newAmount, isBookAvailable, isbn_in) > 0){
 			return "book updated";
 		}
 		return "could not update book";

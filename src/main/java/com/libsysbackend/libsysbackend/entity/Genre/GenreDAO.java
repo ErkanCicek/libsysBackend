@@ -35,6 +35,7 @@ public class GenreDAO {
 		), genreId_in);
 		return new Gson().toJson(genre);
 	}
+
 	public String getAllGenre(){
 		String query = "SELECT * FROM genre";
 		ArrayList<Genre>genres = new ArrayList<>();
