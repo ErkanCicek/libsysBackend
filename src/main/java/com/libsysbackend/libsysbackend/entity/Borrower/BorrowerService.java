@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Borrower;
+package com.libsysbackend.libsysbackend.entity.Borrower;
 
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.BorrowedBooks;
+package com.libsysbackend.libsysbackend.entity.BorrowedBooks;
 
 public class BorrowedBooks {
     private int borrowedBooksID;

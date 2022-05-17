@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.BorrowedBooks;
+package com.libsysbackend.libsysbackend.entity.BorrowedBooks;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

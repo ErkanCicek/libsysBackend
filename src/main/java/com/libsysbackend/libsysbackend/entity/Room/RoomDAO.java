@@ -1,13 +1,16 @@
-package com.libsysbackend.libsysbackend.Room;
+package com.libsysbackend.libsysbackend.entity.Room;
 
 import com.google.gson.Gson;
+import com.libsysbackend.libsysbackend.entity.Room.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class RoomDAO {
 
     @Autowired
@@ -20,19 +23,21 @@ public class RoomDAO {
 
                 rs.getInt("roomID"),
                 rs.getString("roomName"),
-                rs.getString("roomDefaultTimeArray")
+                rs.getString("DefaultTimeArray"),
+                rs.getString("imageUrl")
         ), roomName_in);
         return new Gson().toJson(room);
 
     }
-    public String getRoomById(String roomId_in){
+    public String getRoomById(int roomId_in){
         String query = "SELECT * FROM Room WHERE roomID =?";
 
         Room room = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Room(
 
                 rs.getInt("roomID"),
                 rs.getString("roomName"),
-                rs.getString("roomDefaultTimeArray")
+                rs.getString("defaultTimeArray"),
+                rs.getString("imageUrl")
         ), roomId_in);
         return new Gson().toJson(room);
 
@@ -46,7 +51,8 @@ public class RoomDAO {
             Room room = new Room(
                     (Integer) row.get("roomID"),
                     (String) row.get("roomName"),
-                    (String) row.get("roomDefaultTimeArray")
+                    (String) row.get("DefaultTimeArray"),
+                    (String) row.get("imageUrl")
 
             );
             rooms.add(room);

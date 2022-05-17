@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 @RestController
-@RequestMapping("genre/")
+@RequestMapping(value = "genre/", method = {POST, GET})
 public class GenreController {
 
 	@Autowired
@@ -27,7 +30,7 @@ public class GenreController {
 	}
 
 	@GetMapping("get/genreById")
-	public String getGenreById(int id_in){
+	public String getGenreById(@RequestParam("id") int id_in){
 		return this.genreService.getGenreById(id_in);
 	}
 }

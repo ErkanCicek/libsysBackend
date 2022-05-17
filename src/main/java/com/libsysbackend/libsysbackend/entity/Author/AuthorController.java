@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@RequestMapping("author/")
+@RequestMapping(value = "author/", method = {RequestMethod.POST, RequestMethod.GET})
 public class AuthorController {
 
 	private final AuthorService authorService;
@@ -23,8 +23,8 @@ public class AuthorController {
 		return this.authorService.getAllAuthors();
 	}
 
-	@GetMapping("get/AuthorById")
-	public String getAuthorById(int id){
+	@GetMapping("get/authorById")
+	public String getAuthorById(@RequestParam("id") int id){
 		return this.authorService.getAuthorById(id);
 	}
 

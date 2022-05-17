@@ -1,6 +1,7 @@
-package com.libsysbackend.libsysbackend.Room;
+package com.libsysbackend.libsysbackend.entity.Room;
 
 import com.google.gson.Gson;
+import com.libsysbackend.libsysbackend.entity.Room.RoomReservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,10 +16,10 @@ public class RoomReservationDAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public String getRoomReservationByName(String roomReservation_in){
+    //public String getRoomReservationByName(String roomReservation_in){
 
-        String query = "SELECT * FROM RoomReservation WHERE roomReservation";
-
+        //String query = "SELECT * FROM RoomReservation WHERE roomReservation";
+        /*
         RoomReservation roomReservation = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new RoomReservation(
 
                 rs.getInt("roomReservationID"),
@@ -29,8 +30,8 @@ public class RoomReservationDAO {
         ), roomReservation_in );
         return new Gson().toJson(roomReservation);
 
-    }
-    public String getRoomReservationById(String roomReservationId_in){
+    }*/
+    /*public String getRoomReservationById(String roomReservationId_in){
 
         String query = "SELECT * FROM RoomReservation WHERE roomReservationID";
 
@@ -43,9 +44,9 @@ public class RoomReservationDAO {
 
         ), roomReservationId_in);
         return new Gson().toJson(roomReservation);
-    }
+    }*/
 
-    public String getAllRoomReservation(){
+    /*public String getAllRoomReservation(){
         String query = "SELECT * FROM RoomReservation";
         ArrayList<RoomReservation> roomreservations = new ArrayList<>();
         List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(query);
@@ -62,7 +63,7 @@ public class RoomReservationDAO {
         } return new Gson().toJson(roomreservations);
 
 
-    }
+    }*/
 
 
 

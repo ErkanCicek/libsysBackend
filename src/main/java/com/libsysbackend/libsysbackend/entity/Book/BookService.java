@@ -8,8 +8,8 @@ import java.nio.charset.StandardCharsets;
 @Service
 public record BookService(BookDAO bookDAO) {
 
-	public String getBookByISBN(String isbn_in) {
-		return this.bookDAO.getBookByISBN(isbn_in);
+	public String getBookByIsbnAndBookId(String isbn_in, int bookId) {
+		return this.bookDAO.getBookByIsbnAndBookId(isbn_in, bookId);
 	}
 
 	public String getAllBooksByGenre(int genreId_in) {
@@ -24,15 +24,23 @@ public record BookService(BookDAO bookDAO) {
 		return this.bookDAO.getAllBooks();
 	}
 
-	public String updateBookByISBN(String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId, int newAmount){
-		return this.bookDAO.updateBookByISBN(isbn_in, URLDecoder.decode(newtTitle, StandardCharsets.UTF_8), URLDecoder.decode(newBookDesc, StandardCharsets.UTF_8), newAuthorId, newGenreId, newAmount);
+	public String updateBookByISBN(int bookId, String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId){
+		return this.bookDAO.updateBookByIsbnAndBookId(bookId, isbn_in, URLDecoder.decode(newtTitle, StandardCharsets.UTF_8), URLDecoder.decode(newBookDesc, StandardCharsets.UTF_8), newAuthorId, newGenreId);
 	}
 
-	public String insertBook(String isbn_in, String title, String bookDesc, int authorID, int genreID, int amount){
-		return bookDAO.insertBook(isbn_in, URLDecoder.decode(title, StandardCharsets.UTF_8), URLDecoder.decode(bookDesc, StandardCharsets.UTF_8), authorID, genreID, amount);
+	public String insertBook(String isbn_in, String title, String bookDesc, int authorID, int genreID){
+		return bookDAO.insertBook(isbn_in, URLDecoder.decode(title, StandardCharsets.UTF_8), URLDecoder.decode(bookDesc, StandardCharsets.UTF_8), authorID, genreID);
 	}
 
-	public String updateBookByISBN2(String isbn_in, String newtTitle, String newBookDesc, int newAuthorId, int newGenreId, int newAmount, boolean isBookAvailable){
-		return this.bookDAO.updateBookByISBN2(isbn_in, URLDecoder.decode(newtTitle, StandardCharsets.UTF_8), URLDecoder.decode(newBookDesc, StandardCharsets.UTF_8), newAuthorId, newGenreId, newAmount, isBookAvailable);
+	public String reserveBook(int bookId, String isbn_in, boolean isBookAvailable){
+		return this.bookDAO.reservedBookUpdate(bookId,isbn_in, isBookAvailable);
+	}
+
+	public Integer countBookByIsbn(String isbn){
+		return this.bookDAO.countBookByIsbn(isbn);
+	}
+
+	public String getBookByISBN(String isbn){
+		return this.bookDAO.getBookByISBN(isbn);
 	}
 }

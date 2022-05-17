@@ -1,4 +1,4 @@
-package com.libsysbackend.libsysbackend.Room;
+package com.libsysbackend.libsysbackend.entity.Room;
 
 public class RoomReservationDetail {
     private int idroomreservationdetail;
