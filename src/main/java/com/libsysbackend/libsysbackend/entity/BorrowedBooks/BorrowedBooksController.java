@@ -14,7 +14,8 @@ public class BorrowedBooksController {
     @PostMapping ("post/newBorrowedBook")
     public String insertBorrowedBooks(@RequestParam("returnDate")String returnDate,
                                       @RequestParam("ISBN")String bookISBN,
+                                      @RequestParam("bookId") int bookId,
                                       @RequestParam("SSN")String borrowerSSN){
-        return this.borrowedBooksService.insertBorrowedBooks(returnDate, bookISBN, borrowerSSN);
+        return this.borrowedBooksService.insertBorrowedBooks(returnDate, bookISBN, String.valueOf(bookId),borrowerSSN);
     }
 }

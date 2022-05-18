@@ -12,10 +12,10 @@ public class BorrowedBooksDAO {
         this.jdbcTemplate=jdbcTemplate;
     }
 
-    public String insertBorrowedBooks(String returnDate, String bookISBN, String borrowerSSN ){
-        String query = "INSERT IGNORE INTO borrowedbooks(returnDate, bookISBN, borrowerSSN) VALUE (?,?,?)";
+    public String insertBorrowedBooks(String returnDate, String bookISBN, String bookId,String borrowerSSN ){
+        String query = "INSERT IGNORE INTO borrowedbooks(returnDate, bookISBN, bookId, borrowerSSN) VALUE (?,?,?,?)";
 
-        if (jdbcTemplate.update(query, returnDate, bookISBN, borrowerSSN) > 0){
+        if (jdbcTemplate.update(query, returnDate, bookISBN, bookId ,borrowerSSN) > 0){
             return "Borrower has been added in the database";
         } else {
             return "Could not add this borrower" +
