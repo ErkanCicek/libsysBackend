@@ -4,21 +4,29 @@ public class Book {
 	private int bookID;
 	private String title;
 	private String bookDesc;
-	private int authorID;
-	private int genreID;
-	private boolean isBookAvailable;
+	private String authorID;
+	private String genreID;
+	private String isBookAvailable;
 	private String ISBN;
 
-	public Book(int bookID, String title, String bookDesc, int authorID, int genreID, String ISBN) {
+	
+	
+	public Book(int bookID,
+	            String title,
+	            String bookDesc,
+	            String authorID,
+	            String genreID,
+	            String isBookAvailable,
+	            String isbn,
+	            String bookAvailable) {
 		this.bookID = bookID;
 		this.title = title;
 		this.bookDesc = bookDesc;
 		this.authorID = authorID;
 		this.genreID = genreID;
 		this.ISBN = ISBN;
-		isBookAvailable = true;
 	}
-
+	
 	public int getBookID() {
 		return bookID;
 	}
@@ -43,27 +51,27 @@ public class Book {
 		this.bookDesc = bookDesc;
 	}
 
-	public int getAuthorID() {
+	public String getAuthorID() {
 		return authorID;
 	}
 
-	public void setAuthorID(int authorID) {
+	public void setAuthorID(String authorID) {
 		this.authorID = authorID;
 	}
 
-	public int getGenreID() {
+	public String getGenreID() {
 		return genreID;
 	}
 
-	public void setGenreID(int genreID) {
+	public void setGenreID(String genreID) {
 		this.genreID = genreID;
 	}
 
-	public boolean isBookAvailable() {
+	public String isBookAvailable() {
 		return isBookAvailable;
 	}
 
-	public void setBookAvailable(boolean bookAvailable) {
+	public void setBookAvailable(String bookAvailable) {
 		isBookAvailable = bookAvailable;
 	}
 
