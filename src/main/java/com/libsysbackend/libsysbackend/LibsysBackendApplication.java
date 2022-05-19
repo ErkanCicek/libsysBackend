@@ -133,7 +133,7 @@ public class LibsysBackendApplication {
 		String[] separatedValues = valuesAsCSV.split(",");
 		
 		bookLibService.addBook(separatedValues[1], separatedValues[2], separatedValues[3], separatedValues[4],
-				separatedValues[5], separatedValues[6]);
+				separatedValues[5]);
 	}
 	
 	@RequestMapping ("/add_author")

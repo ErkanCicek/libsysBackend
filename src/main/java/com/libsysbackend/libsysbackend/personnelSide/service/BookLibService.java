@@ -30,9 +30,9 @@ public class BookLibService {
 	
 	public String deleteBookByID(String bookID){return bookLibDao.deleteBookByID(String.valueOf(bookID));}
 	
-	public void addBook(String ISBN, String title, String bookDesc, String authorID, String genreID, String isBookAvailable){
+	public void addBook(String ISBN, String title, String bookDesc, String authorID, String genreID){
 		bookLibDao.addBook(URLDecoder.decode(ISBN), URLDecoder.decode(title), URLDecoder.decode(bookDesc),
-				URLDecoder.decode(authorID), URLDecoder.decode(genreID), URLDecoder.decode(isBookAvailable));}
+				URLDecoder.decode(authorID), URLDecoder.decode(genreID));}
 	
 	public void addAuthor(String authorName){bookLibDao.addAuthor(URLDecoder.decode(authorName));}
 	

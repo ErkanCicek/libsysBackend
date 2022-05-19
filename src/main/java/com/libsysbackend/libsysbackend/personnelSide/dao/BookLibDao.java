@@ -115,8 +115,7 @@ public class BookLibDao {
 		return returnable;
 	}
 	
-	public void addBook(String ISBN, String title, String bookDesc, String authorID, String genreID,
-	                    String isBookAvailable)
+	public void addBook(String ISBN, String title, String bookDesc, String authorID, String genreID)
 	{
 		// If a space (" ") was added from frontend it will be replaced by the phrase "WHITESPACEHEREX".
 		// This phrase is raplaced back with a space here so that the String takes its original form with spaces included
@@ -126,7 +125,6 @@ public class BookLibDao {
 		String bookDescSpaceFixed = bookDesc.replace("WHITESPACEHEREX", " ");
 		String bookAuthorSpaceFixed = authorID.replace("WHITESPACEHEREX", " ");
 		String bookGenreSpaceFixed = genreID.replace("WHITESPACEHEREX", " ");
-		String bookAvailableSpaceFixed = isBookAvailable.replace("WHITESPACEHEREX", " ");
 		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("add_book");
 		
@@ -137,7 +135,6 @@ public class BookLibDao {
 		inParameters.put("bookDesc", bookDescSpaceFixed);
 		inParameters.put("authorID", bookAuthorSpaceFixed);
 		inParameters.put("genreID", bookGenreSpaceFixed);
-		inParameters.put("isBookAvailable", bookAvailableSpaceFixed);
 		
 		SqlParameterSource in = new MapSqlParameterSource(inParameters);
 		
