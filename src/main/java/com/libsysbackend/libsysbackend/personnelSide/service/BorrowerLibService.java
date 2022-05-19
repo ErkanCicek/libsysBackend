@@ -26,8 +26,8 @@ public class BorrowerLibService {
 	
 	public String deleteBorrowerByID(String borrowerID){return borrowerLibDao.deleteBorrowerByID(String.valueOf(borrowerID));}
 	
-	public void addBorrower(String name, String lastName, String SSN){
-		borrowerLibDao.addBorrower(name, lastName, SSN);}
+	public void addBorrower(String name, String lastName, String SSN, String email, String phoneNr){
+		borrowerLibDao.addBorrower(name, lastName, SSN, email, phoneNr);}
 	
 	public void addBorrowerCredentials(String borrower_BorrowerId, String borrowerPassword){
 		borrowerLibDao.addBorrowerCredentials(borrower_BorrowerId, borrowerPassword);}

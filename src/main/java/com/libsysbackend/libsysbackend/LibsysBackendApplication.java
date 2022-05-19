@@ -35,6 +35,43 @@ public class LibsysBackendApplication {
 		return personelID;
 	}
 	
+	@RequestMapping ("/add_personel")
+	public void addPersonel(@RequestParam(value = "valuesAsCSV", defaultValue = "incorrect input") String valuesAsCSV){
+		String[] separatedValues = valuesAsCSV.split(",");
+		
+		librarianService.addPersonel(separatedValues[1], separatedValues[2], separatedValues[3], separatedValues[4]
+				, separatedValues[5], separatedValues[6]);
+	}
+	
+	@RequestMapping ("/add_personelCredentials")
+	public void addPersonelCredentials(@RequestParam(value = "valuesAsCSV", defaultValue = "incorrect input") String valuesAsCSV){
+		String[] separatedValues = valuesAsCSV.split(",");
+		
+		librarianService.addPersonelCredentials(separatedValues[1], separatedValues[2]);
+	}
+	
+	@GetMapping ("/getAllPersonel")
+	public String getAllPersonel(){
+		LibrarianService librarianService = context.getBean(LibrarianService.class);
+		ArrayList allPersonel = librarianService.getAllPersonel();
+		
+		ArrayList<String> allPersonelString = new ArrayList<>();
+		
+		for (int i = 0; i < allPersonel.size(); i++){
+			allPersonelString.add(allPersonel.get(i).toString());
+		}
+		
+		String returnable = allPersonel.toString();
+		
+		System.out.println("TEST\n" + returnable);
+		return returnable;
+	}
+	
+	@DeleteMapping ("/deletePersonelByID")
+	public void deletePersonelById(@RequestParam(value = "personelID", defaultValue = "incorrect input") String personelID) {
+		librarianService.deletePersonelByID(personelID);
+	}
+	
 	@GetMapping ("/getRoleByID")
 	public String getRoleById(@RequestParam (value = "personelID", defaultValue = "incorrect input") String personelID){
 		LibrarianService librarianService = context.getBean(LibrarianService.class);
@@ -153,7 +190,8 @@ public class LibsysBackendApplication {
 	public void addBorrower(@RequestParam(value = "valuesAsCSV", defaultValue = "incorrect input") String valuesAsCSV){
 		String[] separatedValues = valuesAsCSV.split(",");
 		
-		borrowerLibService.addBorrower(separatedValues[1], separatedValues[2], separatedValues[3]);
+		borrowerLibService.addBorrower(separatedValues[1], separatedValues[2], separatedValues[3], separatedValues[4]
+				, separatedValues[5]);
 	}
 	
 	@RequestMapping ("/add_borrowerCredentials")

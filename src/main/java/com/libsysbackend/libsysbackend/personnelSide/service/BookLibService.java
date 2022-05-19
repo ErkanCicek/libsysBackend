@@ -29,14 +29,15 @@ public class BookLibService {
 	public String deleteBookByID(String bookID){return bookLibDao.deleteBookByID(String.valueOf(bookID));}
 	
 	public void addBook(String ISBN, String title, String bookDesc, String authorID, String genreID, String isBookAvailable){
-		bookLibDao.addBook(ISBN, title, bookDesc, authorID, genreID, isBookAvailable);}
+		bookLibDao.addBook(URLDecoder.decode(ISBN), URLDecoder.decode(title), URLDecoder.decode(bookDesc),
+				URLDecoder.decode(authorID), URLDecoder.decode(genreID), URLDecoder.decode(isBookAvailable));}
 	
 	public void addAuthor(String authorName){bookLibDao.addAuthor(URLDecoder.decode(authorName));}
 	
 	public String deleteAuthorByID(String authorID){return bookLibDao.deleteAuthorByID(URLDecoder.decode(authorID));}
 	
-	public void addGenre(String genreName, String genreDesc){
-		bookLibDao.addGenre(genreName, genreDesc);}
+	public void addGenre(String genreName, String genreDesc){bookLibDao.addGenre(URLDecoder.decode(genreName,
+			StandardCharsets.UTF_8), URLDecoder.decode(genreDesc, StandardCharsets.UTF_8));}
 	
 	public String deleteGenreByID(String genreID){return bookLibDao.deleteGenreByID(URLDecoder.decode(genreID));}
 }

@@ -23,7 +23,7 @@ public class BookLibDao {
 	JdbcTemplate jdbcTemplate;
 	
 	public BookLib getBookByISBN(String ISBN) {
-		String query = "SELECT * FROM book WHERE ISBN = ?";
+		String query = "SELECT * FROM book WHERE ISBN = ? LIMIT 1";
 		
 		BookLib bookLib = jdbcTemplate.queryForObject(query, new RowMapper<BookLib>() {
 			@Override
@@ -44,7 +44,7 @@ public class BookLibDao {
 	}
 	
 	public BookLib getBookByTitle(String title) {
-		String query = "SELECT * FROM book WHERE title = ?";
+		String query = "SELECT * FROM book WHERE title = ? LIMIT 1";
 		
 		BookLib bookLib = jdbcTemplate.queryForObject(query, new RowMapper<BookLib>() {
 			@Override
@@ -65,7 +65,7 @@ public class BookLibDao {
 	}
 	
 	public BookLib getBookByAuthorID(String authorID) {
-		String query = "SELECT * FROM book WHERE authorID = ?";
+		String query = "SELECT * FROM book WHERE authorID = ? LIMIT 1";
 		
 		BookLib bookLib = jdbcTemplate.queryForObject(query, new RowMapper<BookLib>() {
 			@Override
@@ -86,7 +86,7 @@ public class BookLibDao {
 	}
 	
 	public BookLib getBookByGenreID(String genreID) {
-		String query = "SELECT * FROM book WHERE genreID = ?";
+		String query = "SELECT * FROM book WHERE genreID = ? LIMIT 1";
 		
 		BookLib bookLib = jdbcTemplate.queryForObject(query, new RowMapper<BookLib>() {
 			@Override
@@ -176,7 +176,6 @@ public class BookLibDao {
 		// (This was done to fix an annoying bug where the program simply refused to take in spaces in Strings...)
 		String genreNameSpaceFixed = genreName.replace("WHITESPACEHEREX", " ");
 		String genreDescSpaceFixed = genreDesc.replace("WHITESPACEHEREX", " ");
-		
 		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("add_genre");
 		
