@@ -1,6 +1,7 @@
 package com.libsysbackend.libsysbackend.personnelSide.dao;
 
 import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
+import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -195,5 +196,27 @@ public class BookLibDao {
 		String returnable = String.valueOf(simpleJdbcCall.execute(authorIDToInt));
 		
 		return returnable;
+	}
+	
+	public void loanBook(String borrowerSSN, String borrowedBookISBN)
+	{
+		// If a space (" ") was added from frontend it will be replaced by the phrase "WHITESPACEHEREX".
+		// This phrase is raplaced back with a space here so that the String takes its original form with spaces included
+		// (This was done to fix an annoying bug where the program simply refused to take in spaces in Strings...)
+		String borrowerSSNSpaceFixed = borrowerSSN.replace("WHITESPACEHEREX", " ");
+		String borrowedBookISBNSpaceFixed = borrowedBookISBN.replace("WHITESPACEHEREX", " ");
+		
+		
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("loan_book");
+		
+		Map<String, String> inParameters = new HashMap<>();
+		
+		inParameters.put("SSN", borrowerSSNSpaceFixed);
+		inParameters.put("loanISBN", borrowedBookISBNSpaceFixed);
+		
+		
+		SqlParameterSource in = new MapSqlParameterSource(inParameters);
+		
+		simpleJdbcCall.execute(in);
 	}
 }

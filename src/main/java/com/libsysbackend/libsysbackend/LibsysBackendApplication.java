@@ -1,6 +1,7 @@
 package com.libsysbackend.libsysbackend;
 
 import com.libsysbackend.libsysbackend.personnelSide.service.BookLibService;
+import com.libsysbackend.libsysbackend.personnelSide.service.BorrowedBooksLibService;
 import com.libsysbackend.libsysbackend.personnelSide.service.BorrowerLibService;
 import com.libsysbackend.libsysbackend.personnelSide.service.LibrarianService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class LibsysBackendApplication {
 	BookLibService bookLibService;
 	@Autowired
 	BorrowerLibService borrowerLibService;
+	@Autowired
+	BorrowedBooksLibService borrowedBooksLibService;
 	
 	public static void main(String[] args) {
 		context = SpringApplication.run(LibsysBackendApplication.class, args);
@@ -63,7 +66,6 @@ public class LibsysBackendApplication {
 		
 		String returnable = allPersonel.toString();
 		
-		System.out.println("TEST\n" + returnable);
 		return returnable;
 	}
 	
@@ -170,7 +172,6 @@ public class LibsysBackendApplication {
 		
 		String returnable = allBorrowers.toString();
 		
-		System.out.println("TEST\n" + returnable);
 		return returnable;
 	}
 	
@@ -200,4 +201,28 @@ public class LibsysBackendApplication {
 		
 		borrowerLibService.addBorrowerCredentials(separatedValues[1], separatedValues[2]);
 	}
+	
+	@RequestMapping ("/loan_book")
+	public void loanBook(@RequestParam(value = "valuesAsCSV", defaultValue = "incorrect input") String valuesAsCSV){
+		String[] separatedValues = valuesAsCSV.split(",");
+		
+		bookLibService.loanBook(separatedValues[1], separatedValues[2]);
+	}
+	
+	@GetMapping ("/getAllBorrowedBooks")
+	public String getAllBorrowedBooks(){
+		BorrowedBooksLibService borrowedBooksLibService = context.getBean(BorrowedBooksLibService.class);
+		ArrayList allBorrowedBooks = borrowedBooksLibService.getAllBorrowedBooks();
+		
+		ArrayList<String> allBorrowedBooksString = new ArrayList<>();
+		
+		for (int i = 0; i < allBorrowedBooks.size(); i++){
+			allBorrowedBooksString.add(allBorrowedBooks.get(i).toString());
+		}
+		
+		String returnable = allBorrowedBooks.toString();
+		
+		return returnable;
+	}
+	
 }
