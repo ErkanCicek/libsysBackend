@@ -5,13 +5,15 @@ public class BorrowedBooks {
     private String returnDate;
     private String bookISBN;
     private String borrowerSSN;
+    private int bookId;
 
 
-    public BorrowedBooks(int borrowedBooksID, String returnDate, String bookISBN, String borrowerSSN) {
+    public BorrowedBooks(int borrowedBooksID, String returnDate, String bookISBN, String borrowerSSN, int bookId) {
         this.borrowedBooksID = borrowedBooksID;
         this.returnDate = returnDate;
         this.bookISBN = bookISBN;
         this.borrowerSSN = borrowerSSN;
+        this.bookId = bookId;
     }
 
     public int getBorrowedBooksID() {
@@ -46,6 +48,14 @@ public class BorrowedBooks {
         this.borrowerSSN = borrowerSSN;
     }
 
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
     @Override
     public String toString() {
         return "BorrowedBooks{" +
@@ -53,6 +63,7 @@ public class BorrowedBooks {
                 ", returnDate='" + returnDate + '\'' +
                 ", bookISBN='" + bookISBN + '\'' +
                 ", borrowerSSN='" + borrowerSSN + '\'' +
+                ", bookId=" + bookId +
                 '}';
     }
 }

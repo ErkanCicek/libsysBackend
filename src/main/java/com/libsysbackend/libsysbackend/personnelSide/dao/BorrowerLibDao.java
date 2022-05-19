@@ -1,6 +1,5 @@
 package com.libsysbackend.libsysbackend.personnelSide.dao;
 
-import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
 import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,23 +33,23 @@ public class BorrowerLibDao {
 					(String) row.get("name"),
 					(String) row.get("lastName"),
 					(String) row.get("SSN"),
-					(String) row.get("epost"),
-					(String) row.get("tel"));
+					(String) row.get("role"));
 			borrowerList.add(borrowerLib);
 		}
 		return borrowerList;
 	}
 	
 	public BorrowerLib getBorrowerByBorrowerID(String borrowerID) {
-		String query = "SELECT * FROM borrower WHERE borrowerID = ? LIMIT 1";
+		String query = "SELECT * FROM borrower WHERE borrowerID = ?";
 		
-		BorrowerLib borrowerLib = jdbcTemplate.queryForObject(query,  new RowMapper<BorrowerLib>() {
+		BorrowerLib borrowerLib = jdbcTemplate.queryForObject(query, new RowMapper<BorrowerLib>() {
 			@Override
 			public BorrowerLib mapRow(ResultSet rs, int rowNum) throws SQLException {
 				BorrowerLib borrowerLib = new BorrowerLib(rs.getInt("borrowerID"),
 						rs.getString("name"),
 						rs.getString("lastName"),
-						rs.getString("SSN"));
+						rs.getString("SSN"),
+						rs.getString("role"));
 				
 				return borrowerLib;
 			}
@@ -67,7 +66,7 @@ public class BorrowerLibDao {
 		return returnable;
 	}
 	
-	public void addBorrower(String name, String lastName, String SSN, String email, String phoneNr)
+	public void addBorrower(String name, String lastName, String SSN)
 	{
 		// If a space (" ") was added from frontend it will be replaced by the phrase "WHITESPACEHEREX".
 		// This phrase is raplaced back with a space here so that the String takes its original form with spaces included
@@ -75,19 +74,15 @@ public class BorrowerLibDao {
 		String borrowerNameSpaceFixed = name.replace("WHITESPACEHEREX", " ");
 		String borrowerLastNameSpaceFixed = lastName.replace("WHITESPACEHEREX", " ");
 		String borrowerSSNSpaceFixed = SSN.replace("WHITESPACEHEREX", " ");
-		String borrowerEmailSpaceFixed = email.replace("WHITESPACEHEREX", " ");
-		String borrowerPhoneNrSpaceFixed = phoneNr.replace("WHITESPACEHEREX", " ");
 		
 		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("add_borrower");
 		
 		Map<String, String> inParameters = new HashMap<>();
 		
-		inParameters.put("borrowerName", borrowerNameSpaceFixed);
-		inParameters.put("borrowerLastName", borrowerLastNameSpaceFixed);
-		inParameters.put("borrowerSSN", borrowerSSNSpaceFixed);
-		inParameters.put("borrowerEmail", borrowerEmailSpaceFixed);
-		inParameters.put("borrowerPhoneNr", borrowerPhoneNrSpaceFixed);
+		inParameters.put("name", borrowerNameSpaceFixed);
+		inParameters.put("lastName", borrowerLastNameSpaceFixed);
+		inParameters.put("SSN", borrowerSSNSpaceFixed);
 		
 		SqlParameterSource in = new MapSqlParameterSource(inParameters);
 		
@@ -107,8 +102,8 @@ public class BorrowerLibDao {
 		
 		Map<String, String> inParameters = new HashMap<>();
 		
-		inParameters.put("bID", borrowerCredentialsBorrowerIDNameSpaceFixed);
-		inParameters.put("pw", borrowerCredentialsPWSpaceFixed);
+		inParameters.put("borrower_BorrowerID", borrowerCredentialsBorrowerIDNameSpaceFixed);
+		inParameters.put("borrowerPassword", borrowerCredentialsPWSpaceFixed);
 		
 		SqlParameterSource in = new MapSqlParameterSource(inParameters);
 		
