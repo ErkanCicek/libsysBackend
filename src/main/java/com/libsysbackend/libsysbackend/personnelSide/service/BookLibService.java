@@ -1,6 +1,7 @@
 package com.libsysbackend.libsysbackend.personnelSide.service;
 import com.libsysbackend.libsysbackend.personnelSide.dao.BookLibDao;
 import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
+import com.libsysbackend.libsysbackend.personnelSide.model.BorrowedBooksLib;
 import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,11 +23,9 @@ public class BookLibService {
 	
 	public BookLib getBookByTitle(String title){return bookLibDao.getBookByTitle(URLDecoder.decode(title, StandardCharsets.UTF_8));}
 	
-	public BookLib getBookByAuthorID(String authorID){return bookLibDao.getBookByAuthorID(URLDecoder.decode(authorID,
-			StandardCharsets.UTF_8));}
+	public BookLib getBookByAuthorName(String authorName){return bookLibDao.getBookByAuthorName(URLDecoder.decode(authorName, StandardCharsets.UTF_8));}
 	
-	public BookLib getBookByGenreID(String genreID){return bookLibDao.getBookByGenreID(URLDecoder.decode(genreID,
-			StandardCharsets.UTF_8));}
+	public BookLib getBookByGenreName(String genreName){return bookLibDao.getBookByGenreName(URLDecoder.decode(genreName, StandardCharsets.UTF_8));}
 	
 	public String deleteBookByID(String bookID){return bookLibDao.deleteBookByID(String.valueOf(bookID));}
 	
@@ -42,7 +41,4 @@ public class BookLibService {
 			StandardCharsets.UTF_8), URLDecoder.decode(genreDesc, StandardCharsets.UTF_8));}
 	
 	public String deleteGenreByID(String genreID){return bookLibDao.deleteGenreByID(URLDecoder.decode(genreID));}
-	
-	public void loanBook(String borrowerSSN, String borrowedBookISBN){
-		bookLibDao.loanBook(URLDecoder.decode(borrowerSSN), URLDecoder.decode(borrowedBookISBN));}
 }
