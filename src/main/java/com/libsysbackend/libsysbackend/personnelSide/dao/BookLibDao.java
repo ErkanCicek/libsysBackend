@@ -1,6 +1,8 @@
 package com.libsysbackend.libsysbackend.personnelSide.dao;
 
 import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
+import com.libsysbackend.libsysbackend.personnelSide.model.BorrowedBooksLib;
+import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -64,8 +66,9 @@ public class BookLibDao {
 		return bookLib;
 	}
 	
-	public BookLib getBookByAuthorID(String authorID) {
-		String query = "SELECT * FROM book WHERE authorID = ? LIMIT 1";
+	public BookLib getBookByAuthorName(String authorName) {
+		
+		String query = "SELECT * FROM book INNER JOIN author USING (authorID) WHERE authorName = ? LIMIT 1";
 		
 		BookLib bookLib = jdbcTemplate.queryForObject(query, new RowMapper<BookLib>() {
 			@Override
@@ -80,13 +83,15 @@ public class BookLibDao {
 				
 				return bookLib;
 			}
-		}, authorID);
+		}, authorName);
 		
 		return bookLib;
 	}
 	
-	public BookLib getBookByGenreID(String genreID) {
-		String query = "SELECT * FROM book WHERE genreID = ? LIMIT 1";
+	public BookLib getBookByGenreName(String genreName) {
+		String query = "SELECT * FROM book INNER JOIN genre USING (genreID) WHERE genreName = ? LIMIT 1";
+		
+		
 		
 		BookLib bookLib = jdbcTemplate.queryForObject(query, new RowMapper<BookLib>() {
 			@Override
@@ -101,7 +106,7 @@ public class BookLibDao {
 				
 				return bookLib;
 			}
-		}, genreID);
+		}, genreName);
 		
 		return bookLib;
 	}
@@ -114,8 +119,7 @@ public class BookLibDao {
 		return returnable;
 	}
 	
-	public void addBook(String ISBN, String title, String bookDesc, String authorID, String genreID,
-	                    String isBookAvailable)
+	public void addBook(String ISBN, String title, String bookDesc, String authorID, String genreID)
 	{
 		// If a space (" ") was added from frontend it will be replaced by the phrase "WHITESPACEHEREX".
 		// This phrase is raplaced back with a space here so that the String takes its original form with spaces included
@@ -125,7 +129,6 @@ public class BookLibDao {
 		String bookDescSpaceFixed = bookDesc.replace("WHITESPACEHEREX", " ");
 		String bookAuthorSpaceFixed = authorID.replace("WHITESPACEHEREX", " ");
 		String bookGenreSpaceFixed = genreID.replace("WHITESPACEHEREX", " ");
-		String bookAvailableSpaceFixed = isBookAvailable.replace("WHITESPACEHEREX", " ");
 		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("add_book");
 		
@@ -136,7 +139,6 @@ public class BookLibDao {
 		inParameters.put("bookDesc", bookDescSpaceFixed);
 		inParameters.put("authorID", bookAuthorSpaceFixed);
 		inParameters.put("genreID", bookGenreSpaceFixed);
-		inParameters.put("isBookAvailable", bookAvailableSpaceFixed);
 		
 		SqlParameterSource in = new MapSqlParameterSource(inParameters);
 		
