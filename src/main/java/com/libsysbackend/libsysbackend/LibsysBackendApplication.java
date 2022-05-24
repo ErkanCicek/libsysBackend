@@ -1,10 +1,8 @@
 package com.libsysbackend.libsysbackend;
 
 import com.libsysbackend.libsysbackend.personnelSide.model.BorrowedBooksLib;
-import com.libsysbackend.libsysbackend.personnelSide.service.BookLibService;
-import com.libsysbackend.libsysbackend.personnelSide.service.BorrowedBooksLibService;
-import com.libsysbackend.libsysbackend.personnelSide.service.BorrowerLibService;
-import com.libsysbackend.libsysbackend.personnelSide.service.LibrarianService;
+import com.libsysbackend.libsysbackend.personnelSide.model.GroupRoomLib;
+import com.libsysbackend.libsysbackend.personnelSide.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +25,8 @@ public class LibsysBackendApplication {
 	BorrowerLibService borrowerLibService;
 	@Autowired
 	BorrowedBooksLibService borrowedBooksLibService;
+	@Autowired
+	GroupRoomLibService groupRoomLibService;
 	
 	public static void main(String[] args) {
 		context = SpringApplication.run(LibsysBackendApplication.class, args);
@@ -235,5 +235,58 @@ public class LibsysBackendApplication {
 		borrowedBooksLibService = context.getBean(BorrowedBooksLibService.class);
 		ISBN = String.valueOf(borrowedBooksLibService.getBorrowedBookByISBN(ISBN));
 		return ISBN;
+	}
+	
+	@GetMapping ("/getAllGroupRoomBookings")
+	public String getAllGroupRoomBookings(){
+		groupRoomLibService = context.getBean(GroupRoomLibService.class);
+		ArrayList allGroupRoomBookings = groupRoomLibService.getAllGroupRoomBookings();
+		
+		ArrayList<String> allGroupRoomBookingsString = new ArrayList<>();
+		
+		for (int i = 0; i < allGroupRoomBookings.size(); i++){
+			allGroupRoomBookingsString.add(allGroupRoomBookings.get(i).toString());
+		}
+		
+		String returnable = allGroupRoomBookings.toString();
+		
+		return returnable;
+	}
+	
+	@RequestMapping ("/add_groupRoom")
+	public void addGroupRoom(@RequestParam(value = "groupRoomName", defaultValue = "incorrect input") String groupRoomName){
+		
+		groupRoomLibService.addGroupRoom(groupRoomName);
+	}
+	
+	@DeleteMapping ("/deleteGroupRoomByID")
+	public void deleteGroupRoomByID(@RequestParam(value = "groupRoomID", defaultValue = "incorrect input") String groupRoomID) {
+		groupRoomLibService.deleteGroupRoomByID(groupRoomID);
+	}
+	
+	@GetMapping ("/getGroupRoomByID")
+	public String getGroupRoomByID(@RequestParam (value = "roomID", defaultValue = "incorrect input") String roomID){
+		groupRoomLibService = context.getBean(GroupRoomLibService.class);
+		roomID = String.valueOf(groupRoomLibService.getGroupRoomByID(roomID));
+		return roomID;
+	}
+	
+	@DeleteMapping ("/deleteGroupRoomBooking")
+	public void deleteGroupRoomBookingByID(@RequestParam(value = "roomResID", defaultValue = "incorrect input") String roomResID) {
+		groupRoomLibService.deleteGroupRoomBookingByID(roomResID);
+	}
+	
+	@GetMapping ("/getGroupRoomBookingByID")
+	public String getGroupRoomBookingByID(@RequestParam (value = "roomResID", defaultValue = "incorrect input") String roomResID){
+		groupRoomLibService = context.getBean(GroupRoomLibService.class);
+		roomResID = String.valueOf(groupRoomLibService.getGroupRoomBookingByID(roomResID));
+		return roomResID;
+	}
+	
+	@RequestMapping ("/book_groupRoom")
+	public void bookGroupRoom(@RequestParam(value = "valuesAsCSV", defaultValue = "incorrect input") String valuesAsCSV){
+		String[] separatedValues = valuesAsCSV.split(",");
+		
+		groupRoomLibService.bookGroupRoom(separatedValues[1], separatedValues[2], separatedValues[3]);
 	}
 }
