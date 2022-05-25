@@ -69,15 +69,15 @@ public class BorrowerDAO {
     }
 
      public Boolean verifyBorrower(String ssn_in, String password){
-        String query = "select borrower.borrowerID from borrower inner join borrowercredentials on borrower.SSN = ? and borrowercredentials.borrowerPassword = ?";
+         String query = "select borrower.borrowerID from borrower inner join borrowercredentials on borrower.SSN = ? and borrowercredentials.borrowerPassword = ?";
 
-        try {
-            Borrower borrower = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Borrower(
-                    rs.getInt("borrowerID")
-            ), ssn_in, password);
-        } catch (EmptyResultDataAccessException e){
-            return false;
-        }
-        return true;
+         try {
+             Borrower borrower = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Borrower(
+                     rs.getInt("borrowerID")
+             ), ssn_in, password);
+             return borrower != null;
+         }catch (EmptyResultDataAccessException e){
+             return false;
+         }
     }
 }

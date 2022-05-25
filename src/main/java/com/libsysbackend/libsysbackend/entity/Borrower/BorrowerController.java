@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@RequestMapping("borrower/")
+@RequestMapping(value = "borrower/", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class BorrowerController {
 
     private final BorrowerService borrowerService;

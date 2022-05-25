@@ -71,7 +71,7 @@ public class BookDAO {
 		return new Gson().toJson(books);
 	}
 	public String getAllBooks(){
-		String query = "select distinct(ISBN),title, bookDesc, isBookAvailable, genreID, authorID from book;";
+		String query = "Select distinct (ISBN), title, bookDesc, isBookAvailable, genreId, authorId from book where book.isBookAvailable = 1";
 		ArrayList<Book>books = new ArrayList<>();
 		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(query);
 
@@ -113,7 +113,7 @@ public class BookDAO {
 	}
 
 	public Integer countBookByIsbn(String isbn_in){
-		String query = "SELECT count(bookId) from book where book.ISBN = ?";
+		String query = "SELECT count(bookId) from book where book.ISBN = ? and book.isBookAvailable = 1";
 		int test = this.jdbcTemplate.queryForObject(query, Integer.class, isbn_in); //Ignore error
 		System.out.println(test);
 		return test;
