@@ -1,5 +1,6 @@
 package com.libsysbackend.libsysbackend;
 
+import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
 import com.libsysbackend.libsysbackend.personnelSide.service.BookLibService;
 import com.libsysbackend.libsysbackend.personnelSide.service.BorrowerLibService;
 import com.libsysbackend.libsysbackend.personnelSide.service.LibrarianService;
@@ -109,9 +110,7 @@ public class LibsysBackendApplication {
 	
 	@RequestMapping("/getLastValidationNumber")
 	public String getValidationNumber(){
-		String returnable = librarianService.getValidationNumber();
-		
-		return returnable;
+		return librarianService.getValidationNumber();
 	}
 	
 	@RequestMapping ("/login_verification")
@@ -160,12 +159,12 @@ public class LibsysBackendApplication {
 	@GetMapping ("/getAllBorrowers")
 	public String getAllBorrowers(){
 		BorrowerLibService borrowerLibService = context.getBean(BorrowerLibService.class);
-		ArrayList allBorrowers = borrowerLibService.getAllBorrowers();
+		ArrayList<BorrowerLib> allBorrowers = borrowerLibService.getAllBorrowers();
 		
 		ArrayList<String> allBorrowersString = new ArrayList<>();
-		
-		for (int i = 0; i < allBorrowers.size(); i++){
-			allBorrowersString.add(allBorrowers.get(i).toString());
+
+		for (BorrowerLib allBorrower : allBorrowers) {
+			allBorrowersString.add(allBorrower.toString());
 		}
 		
 		String returnable = allBorrowers.toString();

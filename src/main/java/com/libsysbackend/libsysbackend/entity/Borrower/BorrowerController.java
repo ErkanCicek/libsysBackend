@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@RequestMapping("borrower/")
+@RequestMapping(value = "borrower/", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.POST})
 public class BorrowerController {
 
     private final BorrowerService borrowerService;
@@ -23,7 +23,7 @@ public class BorrowerController {
     public String getBorrowerBySSN(@RequestParam("value")String ssn_in){
         return this.borrowerService.getBorrowerBySSN(ssn_in);
     }
-    @PutMapping("put/borrwerContactBySSN")
+    @PutMapping("put/borrowerContactBySSN")
     public String updateBorrowerContactBySSN(@RequestParam("value")String ssn_in, @RequestParam("newEpost") String newEpost_in, @RequestParam("newTel") String newTel_in){
         return this.borrowerService.updateBorrowerContactBySSN(ssn_in, URLEncoder.encode(newEpost_in, StandardCharsets.UTF_8), newTel_in);
     }
@@ -33,7 +33,7 @@ public class BorrowerController {
     }
 
     @GetMapping("get/verifyBorrower")
-    public Boolean verifyBorrower(@RequestParam("SSN")String ssn_in, @RequestParam("password")String password){
+    public String verifyBorrower(@RequestParam("SSN")String ssn_in, @RequestParam("password")String password){
         return this.borrowerService.verifyBorrower(ssn_in, password);
     }
 }
