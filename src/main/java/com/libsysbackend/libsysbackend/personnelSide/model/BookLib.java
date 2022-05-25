@@ -20,6 +20,14 @@ public class BookLib {
 		this.isBookAvailable = isBookAvailable;
 	}
 	
+	public BookLib(long bookID, String title, String bookDesc, String authorID, String genreID) {
+		this.bookID = bookID;
+		this.title = title;
+		this.bookDesc = bookDesc;
+		this.authorID = authorID;
+		this.genreID = genreID;
+	}
+	
 	public long getBookID() {
 		return bookID;
 	}

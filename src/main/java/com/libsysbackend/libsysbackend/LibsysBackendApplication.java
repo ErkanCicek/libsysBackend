@@ -1,9 +1,8 @@
 package com.libsysbackend.libsysbackend;
 
-import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
-import com.libsysbackend.libsysbackend.personnelSide.service.BookLibService;
-import com.libsysbackend.libsysbackend.personnelSide.service.BorrowerLibService;
-import com.libsysbackend.libsysbackend.personnelSide.service.LibrarianService;
+import com.libsysbackend.libsysbackend.personnelSide.model.BorrowedBooksLib;
+import com.libsysbackend.libsysbackend.personnelSide.model.GroupRoomLib;
+import com.libsysbackend.libsysbackend.personnelSide.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +23,10 @@ public class LibsysBackendApplication {
 	BookLibService bookLibService;
 	@Autowired
 	BorrowerLibService borrowerLibService;
+	@Autowired
+	BorrowedBooksLibService borrowedBooksLibService;
+	@Autowired
+	GroupRoomLibService groupRoomLibService;
 	
 	public static void main(String[] args) {
 		context = SpringApplication.run(LibsysBackendApplication.class, args);
@@ -31,7 +34,7 @@ public class LibsysBackendApplication {
 	
 	@GetMapping ("/getLibrarianByID")
 	public String getStaffById(@RequestParam (value = "personelID", defaultValue = "incorrect input") String personelID){
-		LibrarianService librarianService = context.getBean(LibrarianService.class);
+		librarianService = context.getBean(LibrarianService.class);
 		personelID = String.valueOf(librarianService.getLibrarianByID(Integer.parseInt(personelID)));
 		return personelID;
 	}
@@ -53,7 +56,7 @@ public class LibsysBackendApplication {
 	
 	@GetMapping ("/getAllPersonel")
 	public String getAllPersonel(){
-		LibrarianService librarianService = context.getBean(LibrarianService.class);
+		librarianService = context.getBean(LibrarianService.class);
 		ArrayList allPersonel = librarianService.getAllPersonel();
 		
 		ArrayList<String> allPersonelString = new ArrayList<>();
@@ -64,7 +67,6 @@ public class LibsysBackendApplication {
 		
 		String returnable = allPersonel.toString();
 		
-		System.out.println("TEST\n" + returnable);
 		return returnable;
 	}
 	
@@ -75,42 +77,44 @@ public class LibsysBackendApplication {
 	
 	@GetMapping ("/getRoleByID")
 	public String getRoleById(@RequestParam (value = "personelID", defaultValue = "incorrect input") String personelID){
-		LibrarianService librarianService = context.getBean(LibrarianService.class);
+		librarianService = context.getBean(LibrarianService.class);
 		personelID = String.valueOf(librarianService.getRoleByID(Integer.parseInt(personelID)));
 		return personelID;
 	}
 	
 	@GetMapping ("/getBookByISBN")
 	public String getBookByISBN(@RequestParam (value = "ISBN", defaultValue = "incorrect input") String ISBN){
-		BookLibService bookService = context.getBean(BookLibService.class);
-		ISBN = String.valueOf(bookService.getBookByISBN(ISBN));
+		bookLibService = context.getBean(BookLibService.class);
+		ISBN = String.valueOf(bookLibService.getBookByISBN(ISBN));
 		return ISBN;
 	}
 	
 	@GetMapping ("/getBookByTitle")
 	public String getBookByTitle(@RequestParam (value = "title", defaultValue = "incorrect input") String title){
-		BookLibService bookService = context.getBean(BookLibService.class);
-		title = String.valueOf(bookService.getBookByTitle(title));
+		bookLibService = context.getBean(BookLibService.class);
+		title = String.valueOf(bookLibService.getBookByTitle(title));
 		return title;
 	}
 	
-	@GetMapping ("/getBookByAuthorID")
-	public String getBookByAuthorID(@RequestParam (value = "authorID", defaultValue = "incorrect input") String authorID){
-		BookLibService bookService = context.getBean(BookLibService.class);
-		authorID = String.valueOf(bookService.getBookByAuthorID(authorID));
-		return authorID;
+	@GetMapping("/getBookByAuthorName")
+	public String getBookByAuthorName(@RequestParam (value = "authorName", defaultValue = "incorrect input") String authorName){
+		bookLibService = context.getBean(BookLibService.class);
+		authorName = String.valueOf(bookLibService.getBookByAuthorName(authorName));
+		return authorName;
 	}
 	
-	@GetMapping ("/getBookByGenreID")
-	public String getBookByGenreID(@RequestParam (value = "genreID", defaultValue = "incorrect input") String genreID){
-		BookLibService bookService = context.getBean(BookLibService.class);
-		genreID = String.valueOf(bookService.getBookByGenreID(genreID));
-		return genreID;
+	@GetMapping("/getBookByGenreName")
+	public String getBookByGenreName(@RequestParam (value = "genreName", defaultValue = "incorrect input") String genreName){
+		bookLibService = context.getBean(BookLibService.class);
+		genreName = String.valueOf(bookLibService.getBookByGenreName(genreName));
+		return genreName;
 	}
 	
 	@RequestMapping("/getLastValidationNumber")
 	public String getValidationNumber(){
-		return librarianService.getValidationNumber();
+		String returnable = librarianService.getValidationNumber();
+		
+		return returnable;
 	}
 	
 	@RequestMapping ("/login_verification")
@@ -130,12 +134,11 @@ public class LibsysBackendApplication {
 		String[] separatedValues = valuesAsCSV.split(",");
 		
 		bookLibService.addBook(separatedValues[1], separatedValues[2], separatedValues[3], separatedValues[4],
-				separatedValues[5], separatedValues[6]);
+				separatedValues[5]);
 	}
 	
 	@RequestMapping ("/add_author")
 	public void addAuthor(@RequestParam(value = "authorName", defaultValue = "incorrect input") String authorName){
-		
 		bookLibService.addAuthor(authorName);
 	}
 	
@@ -158,24 +161,23 @@ public class LibsysBackendApplication {
 	
 	@GetMapping ("/getAllBorrowers")
 	public String getAllBorrowers(){
-		BorrowerLibService borrowerLibService = context.getBean(BorrowerLibService.class);
-		ArrayList<BorrowerLib> allBorrowers = borrowerLibService.getAllBorrowers();
+		borrowerLibService = context.getBean(BorrowerLibService.class);
+		ArrayList allBorrowers = borrowerLibService.getAllBorrowers();
 		
 		ArrayList<String> allBorrowersString = new ArrayList<>();
-
-		for (BorrowerLib allBorrower : allBorrowers) {
-			allBorrowersString.add(allBorrower.toString());
+		
+		for (int i = 0; i < allBorrowers.size(); i++){
+			allBorrowersString.add(allBorrowers.get(i).toString());
 		}
 		
 		String returnable = allBorrowers.toString();
 		
-		System.out.println("TEST\n" + returnable);
 		return returnable;
 	}
 	
 	@GetMapping ("/getBorrowerByBorrowerID")
 	public String getBorrowerByBorrowerID(@RequestParam (value = "borrowerID", defaultValue = "incorrect input") String borrowerID){
-		BorrowerLibService bookService = context.getBean(BorrowerLibService.class);
+		borrowerLibService = context.getBean(BorrowerLibService.class);
 		borrowerID = String.valueOf(borrowerLibService.getBorrowerByBorrowerID(borrowerID));
 		return borrowerID;
 	}
@@ -198,5 +200,93 @@ public class LibsysBackendApplication {
 		String[] separatedValues = valuesAsCSV.split(",");
 		
 		borrowerLibService.addBorrowerCredentials(separatedValues[1], separatedValues[2]);
+	}
+	
+	@RequestMapping ("/loan_book")
+	public void loanBook(@RequestParam(value = "valuesAsCSV", defaultValue = "incorrect input") String valuesAsCSV){
+		String[] separatedValues = valuesAsCSV.split(",");
+		
+		borrowedBooksLibService.loanBook(separatedValues[1], separatedValues[2]);
+	}
+	
+	@GetMapping ("/getAllBorrowedBooks")
+	public String getAllBorrowedBooks(){
+		borrowedBooksLibService = context.getBean(BorrowedBooksLibService.class);
+		ArrayList allBorrowedBooks = borrowedBooksLibService.getAllBorrowedBooks();
+		
+		ArrayList<String> allBorrowedBooksString = new ArrayList<>();
+		
+		for (int i = 0; i < allBorrowedBooks.size(); i++){
+			allBorrowedBooksString.add(allBorrowedBooks.get(i).toString());
+		}
+		
+		String returnable = allBorrowedBooks.toString();
+		
+		return returnable;
+	}
+	
+	@DeleteMapping ("/returnBookByISBN")
+	public void returnBookByISBN(@RequestParam(value = "bookISBN", defaultValue = "incorrect input") String bookISBN) {
+		borrowedBooksLibService.returnBookByISBN(bookISBN);
+	}
+	
+	@GetMapping ("/getBorrowedBookByISBN")
+	public String getBorrowedBookByISBN(@RequestParam (value = "ISBN", defaultValue = "incorrect input") String ISBN){
+		borrowedBooksLibService = context.getBean(BorrowedBooksLibService.class);
+		ISBN = String.valueOf(borrowedBooksLibService.getBorrowedBookByISBN(ISBN));
+		return ISBN;
+	}
+	
+	@GetMapping ("/getAllGroupRoomBookings")
+	public String getAllGroupRoomBookings(){
+		groupRoomLibService = context.getBean(GroupRoomLibService.class);
+		ArrayList allGroupRoomBookings = groupRoomLibService.getAllGroupRoomBookings();
+		
+		ArrayList<String> allGroupRoomBookingsString = new ArrayList<>();
+		
+		for (int i = 0; i < allGroupRoomBookings.size(); i++){
+			allGroupRoomBookingsString.add(allGroupRoomBookings.get(i).toString());
+		}
+		
+		String returnable = allGroupRoomBookings.toString();
+		
+		return returnable;
+	}
+	
+	@RequestMapping ("/add_groupRoom")
+	public void addGroupRoom(@RequestParam(value = "groupRoomName", defaultValue = "incorrect input") String groupRoomName){
+		
+		groupRoomLibService.addGroupRoom(groupRoomName);
+	}
+	
+	@DeleteMapping ("/deleteGroupRoomByID")
+	public void deleteGroupRoomByID(@RequestParam(value = "groupRoomID", defaultValue = "incorrect input") String groupRoomID) {
+		groupRoomLibService.deleteGroupRoomByID(groupRoomID);
+	}
+	
+	@GetMapping ("/getGroupRoomByID")
+	public String getGroupRoomByID(@RequestParam (value = "roomID", defaultValue = "incorrect input") String roomID){
+		groupRoomLibService = context.getBean(GroupRoomLibService.class);
+		roomID = String.valueOf(groupRoomLibService.getGroupRoomByID(roomID));
+		return roomID;
+	}
+	
+	@DeleteMapping ("/deleteGroupRoomBooking")
+	public void deleteGroupRoomBookingByID(@RequestParam(value = "roomResID", defaultValue = "incorrect input") String roomResID) {
+		groupRoomLibService.deleteGroupRoomBookingByID(roomResID);
+	}
+	
+	@GetMapping ("/getGroupRoomBookingByID")
+	public String getGroupRoomBookingByID(@RequestParam (value = "roomResID", defaultValue = "incorrect input") String roomResID){
+		groupRoomLibService = context.getBean(GroupRoomLibService.class);
+		roomResID = String.valueOf(groupRoomLibService.getGroupRoomBookingByID(roomResID));
+		return roomResID;
+	}
+	
+	@RequestMapping ("/book_groupRoom")
+	public void bookGroupRoom(@RequestParam(value = "valuesAsCSV", defaultValue = "incorrect input") String valuesAsCSV){
+		String[] separatedValues = valuesAsCSV.split(",");
+		
+		groupRoomLibService.bookGroupRoom(separatedValues[1], separatedValues[2], separatedValues[3]);
 	}
 }

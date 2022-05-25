@@ -1,6 +1,5 @@
 package com.libsysbackend.libsysbackend.personnelSide.dao;
 
-import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
 import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
