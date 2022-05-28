@@ -42,4 +42,8 @@ public class RoomResController {
 	){
 		return this.roomResDetailService.reserveStudyRoom(roomResId, time, borrowerId, roomId);
 	}
+	@GetMapping("get/getAllReservationsBySSN")
+	public String getAllReservationsBySSN(@RequestParam("value")String SSN){
+		return this.roomResDetailService.getAllReservationsBySSN(SSN);
+	}
 }

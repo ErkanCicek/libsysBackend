@@ -23,4 +23,7 @@ public record RoomResService(RoomResDao roomResDetailDao) {
 	public String reserveStudyRoom(Integer roomResId, String time, Integer borrowerId, Integer roomId){
 		return this.roomResDetailDao.reserveStudyRoom(roomResId, time, borrowerId, roomId);
 	}
+	public String getAllReservationsBySSN(String SSN){
+		return this.roomResDetailDao.getAllReservationsBySSN(SSN);
+	}
 }
