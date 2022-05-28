@@ -28,6 +28,8 @@ public class Book {
 		this.isBookAvailable = true;
 	}
 
+	public Book(){}
+
 	public int getBookId() {
 		return bookId;
 	}

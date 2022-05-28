@@ -3,8 +3,14 @@ package com.libsysbackend.libsysbackend.entity.Book;
 import com.google.gson.Gson;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -104,12 +110,11 @@ public class BookDAO {
 		return "could not update book";
 	}
 
-	public String reservedBookUpdate(int bookId, String isbn_in, boolean isBookAvailable){
-		String query = "UPDATE book SET isBookAvailable = ? WHERE isbn = ? AND bookId = ?;";
-		if (this.jdbcTemplate.update(query, isBookAvailable, isbn_in, bookId) > 0){
-			return "book has been reserved";
-		}
-		return "could not reserve book";
+	public String reservedBookUpdate(int bookId, String isbn_in){
+		SimpleJdbcCall reserveBookProcedure = new SimpleJdbcCall(this.jdbcTemplate).withProcedureName("reserveBook");
+		SqlParameterSource in = new MapSqlParameterSource().addValue("bookIsbn", isbn_in).addValue("bookId", bookId);
+		reserveBookProcedure.execute(in);
+		return "book has been reserved";
 	}
 
 	public Integer countBookByIsbn(String isbn_in){
@@ -130,6 +135,27 @@ public class BookDAO {
 				rs.getInt("authorID")
 		), isbn);
 		return new Gson().toJson(book);
+
 	}
 
+	public List<Book> getMostPopularAvailableBook(){
+		SimpleJdbcCall getMostPopularBooks = new SimpleJdbcCall(this.jdbcTemplate).withProcedureName("getMostPopularBook")
+				.returningResultSet("books", new RowMapper<Book>() {
+					@Override
+					public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Book book = new Book();
+						book.setISBN(rs.getString("ISBN"));
+						book.setTitle(rs.getString("title"));
+						book.setBookDesc(rs.getString("bookDesc"));
+						book.setGenreID(rs.getInt("genreID"));
+						book.setAuthorID(rs.getInt("authorId"));
+						book.setBookAvailable(true);
+						return book;
+					}
+				});
+		Map<String, Object> out = getMostPopularBooks.execute();
+		@SuppressWarnings("unchecked") // The type is supposed to be a book
+		List<Book>bookList = (List<Book>) out.get("books");
+		return bookList;
+	}
 }
