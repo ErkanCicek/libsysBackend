@@ -41,13 +41,13 @@ public class BookDAO {
 		}
 	}
 	public String getAllBooksByGenre(int genreId_in){
-		String query = "SELECT * FROM book where genreID = " + genreId_in;
+		String query = "select distinct(ISBN), title, bookdesc, genreid, authorid from book where isbookavailable = 1 and genreid =" + genreId_in;
 		ArrayList<Book>books = new ArrayList<>();
 		List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(query);
 
 		for (Map<String, Object> row : rows){
 			Book book = new Book(
-					(Integer) row.get("bookID"),
+					0,
 					(String) row.get("ISBN"),
 					(String) row.get("title"),
 					(String) row.get("bookDesc"),
