@@ -1,29 +1,28 @@
 package com.libsysbackend.libsysbackend.entity.Room;
 
-import com.google.gson.Gson;
-
 import java.util.Arrays;
 
 public class Room {
-	private int roomID;
+	private Integer roomId;
 	private String roomName;
-	private int[]defultTimeArray;
+	private int[]timeArray;
 	private String imageUrl;
 
-	public Room(int roomID, String roomName, String defuaultTimeArray, String imageUrl) {
-		Gson gson = new Gson();
-		this.roomID = roomID;
+	public Room(Integer roomId, String roomName, String imageUrl) {
+		this.roomId = roomId;
 		this.roomName = roomName;
-		defultTimeArray = gson.fromJson(defuaultTimeArray, int[].class);
+		this.timeArray = new int[]{
+				10,12,14,16,18
+		};
 		this.imageUrl = imageUrl;
 	}
 
-	public int getRoomID() {
-		return roomID;
+	public Integer getRoomId() {
+		return roomId;
 	}
 
-	public void setRoomID(int roomID) {
-		this.roomID = roomID;
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
 	public String getRoomName() {
@@ -34,12 +33,12 @@ public class Room {
 		this.roomName = roomName;
 	}
 
-	public int[] getDefultTimeArray() {
-		return defultTimeArray;
+	public int[] getTimeArray() {
+		return timeArray;
 	}
 
-	public void setDefultTimeArray(int[] defultTimeArray) {
-		this.defultTimeArray = defultTimeArray;
+	public void setTimeArray(int[] timeArray) {
+		this.timeArray = timeArray;
 	}
 
 	public String getImageUrl() {
@@ -53,9 +52,9 @@ public class Room {
 	@Override
 	public String toString() {
 		return "Room{" +
-				"roomID=" + roomID +
+				"roomId=" + roomId +
 				", roomName='" + roomName + '\'' +
-				", defultTimeArray=" + Arrays.toString(defultTimeArray) +
+				", timeArray=" + Arrays.toString(timeArray) +
 				", imageUrl='" + imageUrl + '\'' +
 				'}';
 	}

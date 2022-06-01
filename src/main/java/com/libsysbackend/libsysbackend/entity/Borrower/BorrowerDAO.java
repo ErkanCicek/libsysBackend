@@ -1,8 +1,10 @@
 package com.libsysbackend.libsysbackend.entity.Borrower;
 
 import com.google.gson.Gson;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -39,7 +41,9 @@ public class BorrowerDAO {
         return new Gson().toJson(borrowers);
     }
     public String getBorrowerBySSN(String ssn_in){
-        String query = "select borrower.borrowerID, borrower.name, borrower.lastName, borrower.SSN, borrowercontact.epost, borrowercontact.tel, borrower.role, borrowercredentials.borrowerPassword from (( borrower inner join borrowercontact on borrower.borrowerID = borrowercontact.borrowerContactID) inner join borrowercredentials on borrower.borrowerID = borrowercredentials.borrower_BorrowerID) where borrower.SSN = ?";
+        String query =
+                "select borrower.borrowerID, borrower.name, borrower.lastName, borrower.SSN, borrowercontact.epost, borrowercontact.tel, borrower.role, borrowercredentials.borrowerPassword " +
+                "from borrower inner join borrowercontact on borrowercontact.borrowerID = borrower.borrowerID inner join borrowercredentials on borrowercredentials.borrower_BorrowerID = borrower.borrowerID where borrower.SSN = ?;";
         Borrower borrower = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Borrower(
                 rs.getInt("borrowerID"),
                 rs.getString("name"),
@@ -68,16 +72,9 @@ public class BorrowerDAO {
         }
     }
 
-     public Boolean verifyBorrower(String ssn_in, String password){
-        String query = "select borrower.borrowerID from borrower inner join borrowercredentials on borrower.SSN = ? and borrowercredentials.borrowerPassword = ?";
-
-        try {
-            Borrower borrower = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Borrower(
-                    rs.getInt("borrowerID")
-            ), ssn_in, password);
-        } catch (EmptyResultDataAccessException e){
-            return false;
-        }
-        return true;
-    }
+     public String verifyBorrower(String ssn_in, String password){
+         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(this.jdbcTemplate).withProcedureName("login");
+         SqlParameterSource in = new MapSqlParameterSource().addValue("ssn", ssn_in).addValue("passwordIn", password);
+         return new Gson().toJson(simpleJdbcCall.execute(in));
+     }
 }

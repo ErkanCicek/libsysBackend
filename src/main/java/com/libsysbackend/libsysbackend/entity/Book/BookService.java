@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Service
 public record BookService(BookDAO bookDAO) {
@@ -32,8 +33,8 @@ public record BookService(BookDAO bookDAO) {
 		return bookDAO.insertBook(isbn_in, URLDecoder.decode(title, StandardCharsets.UTF_8), URLDecoder.decode(bookDesc, StandardCharsets.UTF_8), authorID, genreID);
 	}
 
-	public String reserveBook(int bookId, String isbn_in, boolean isBookAvailable){
-		return this.bookDAO.reservedBookUpdate(bookId,isbn_in, isBookAvailable);
+	public String reserveBook(int bookId, String isbn_in){
+		return this.bookDAO.reservedBookUpdate(bookId,isbn_in);
 	}
 
 	public Integer countBookByIsbn(String isbn){
@@ -42,5 +43,9 @@ public record BookService(BookDAO bookDAO) {
 
 	public String getBookByISBN(String isbn){
 		return this.bookDAO.getBookByISBN(isbn);
+	}
+
+	public List<Book> getMostPopularAvailableBook(){
+		return this.bookDAO.getMostPopularAvailableBook();
 	}
 }

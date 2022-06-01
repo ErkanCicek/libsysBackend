@@ -4,8 +4,8 @@ import org.apache.catalina.util.URLEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "book/", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
@@ -60,10 +60,9 @@ public class BookController {
 	@PutMapping("put/reserveBook")
 	public String updateBookByISBN2(
 			@RequestParam("bookId") int bookId,
-			@RequestParam("isbn") String isbn_in,
-			@RequestParam("Available")boolean isBookAvailable)
+			@RequestParam("isbn") String isbn_in)
 	{
-		return this.bookService.reserveBook(bookId, isbn_in, isBookAvailable);
+		return this.bookService.reserveBook(bookId, isbn_in);
 	}
 
 	@PostMapping("post/newBook")
@@ -82,6 +81,11 @@ public class BookController {
 			@RequestParam("bookIsbn") String isbn
 	){
 		return this.bookService.countBookByIsbn(isbn);
+	}
+
+	@GetMapping("get/mostPopularAvailableBook")
+	public List<Book> getMostPopularAvailableBook(){
+		return this.bookService.getMostPopularAvailableBook();
 	}
 
 }
