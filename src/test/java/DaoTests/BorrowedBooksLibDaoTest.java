@@ -43,7 +43,6 @@ class BorrowedBooksLibDaoTest {
 		
 		// Result
 		assertEquals(borrowedBooksLibListMock, testList);
-		
 	}
 	
 	@Test
