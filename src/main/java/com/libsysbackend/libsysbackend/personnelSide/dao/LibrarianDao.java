@@ -131,7 +131,7 @@ public class LibrarianDao extends JdbcDaoSupport {
 		return answer;
 	}
 	
-	public void libLogin (String personelID, String password){
+	public String libLogin (String personelID, String password){
 		String personelIDSpaceFixed = personelID.replace("WHITESPACEHEREX", " ");
 		String passwordSpaceFixed = password.replace("WHITESPACEHEREX", " ");
 		
@@ -144,7 +144,9 @@ public class LibrarianDao extends JdbcDaoSupport {
 		
 		SqlParameterSource in = new MapSqlParameterSource(inParameters);
 		
-		String.valueOf(simpleJdbcCall.execute(in));
+		String returnable = String.valueOf(simpleJdbcCall.execute(in));
+		
+		return returnable;
 	}
 	
 	public Librarian getRoleById(String personelID) {
