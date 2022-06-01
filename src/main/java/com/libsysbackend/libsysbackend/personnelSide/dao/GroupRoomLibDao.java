@@ -111,7 +111,7 @@ public class GroupRoomLibDao {
 		return groupRoomLib;
 	}
 	
-	public void bookGroupRoom(String groupRoomID, String bookingDate, String borrowerID)
+	public String bookGroupRoom(String groupRoomID, String bookingDate, String borrowerID)
 	{
 		// If a space (" ") was added from frontend it will be replaced by the phrase "WHITESPACEHEREX".
 		// This phrase is raplaced back with a space here so that the String takes its original form with spaces included
@@ -130,6 +130,8 @@ public class GroupRoomLibDao {
 		
 		SqlParameterSource in = new MapSqlParameterSource(inParameters);
 		
-		simpleJdbcCall.execute(in);
+		String returnable = String.valueOf(simpleJdbcCall.execute(in));
+		
+		return returnable;
 	}
 }
