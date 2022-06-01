@@ -1,9 +1,6 @@
 package DaoTests;
 
-import com.libsysbackend.libsysbackend.personnelSide.dao.BorrowedBooksLibDao;
 import com.libsysbackend.libsysbackend.personnelSide.dao.BorrowerLibDao;
-import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
-import com.libsysbackend.libsysbackend.personnelSide.model.BorrowedBooksLib;
 import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -99,6 +96,5 @@ class BorrowerLibDaoTest {
 		// Result
 		assertEquals(1, i);
 		Mockito.verify(jdbcTemplateMock).update(query,"hemligt", "1");
-	
 	}
 }

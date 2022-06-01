@@ -1,10 +1,6 @@
 package DaoTests;
 
-import com.libsysbackend.libsysbackend.personnelSide.dao.GroupRoomLibDao;
 import com.libsysbackend.libsysbackend.personnelSide.dao.LibrarianDao;
-import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
-import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
-import com.libsysbackend.libsysbackend.personnelSide.model.GroupRoomLib;
 import com.libsysbackend.libsysbackend.personnelSide.model.Librarian;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibrarianDaoTest {
-	
 	
 	@Mock
 	JdbcTemplate jdbcTemplateMock;

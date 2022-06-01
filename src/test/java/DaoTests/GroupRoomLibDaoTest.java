@@ -1,10 +1,6 @@
 package DaoTests;
 
-import com.libsysbackend.libsysbackend.personnelSide.dao.BorrowerLibDao;
 import com.libsysbackend.libsysbackend.personnelSide.dao.GroupRoomLibDao;
-import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
-import com.libsysbackend.libsysbackend.personnelSide.model.BorrowedBooksLib;
-import com.libsysbackend.libsysbackend.personnelSide.model.BorrowerLib;
 import com.libsysbackend.libsysbackend.personnelSide.model.GroupRoomLib;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

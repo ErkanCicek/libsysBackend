@@ -1,7 +1,6 @@
 package DaoTests;
 
 import com.libsysbackend.libsysbackend.personnelSide.dao.BorrowedBooksLibDao;
-import com.libsysbackend.libsysbackend.personnelSide.model.BookLib;
 import com.libsysbackend.libsysbackend.personnelSide.model.BorrowedBooksLib;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
