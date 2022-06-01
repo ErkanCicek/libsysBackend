@@ -198,4 +198,25 @@ public class BookLibDao {
 		
 		return returnable;
 	}
+	
+	public BookLib getIsBookAvailable(String isBookAvailable) {
+		String query = "SELECT * FROM book WHERE isBookAvailable = ? LIMIT 1";
+		
+		BookLib bookLib = jdbcTemplate.queryForObject(query, new RowMapper<BookLib>() {
+			@Override
+			public BookLib mapRow(ResultSet rs, int rowNum) throws SQLException {
+				BookLib bookLib = new BookLib(rs.getInt("bookID"),
+						rs.getString("ISBN"),
+						rs.getString("title"),
+						rs.getString("bookDesc"),
+						rs.getString("authorID"),
+						rs.getString("genreID"),
+						rs.getString("isBookAvailable"));
+				
+				return bookLib;
+			}
+		}, isBookAvailable);
+		
+		return bookLib;
+	}
 }

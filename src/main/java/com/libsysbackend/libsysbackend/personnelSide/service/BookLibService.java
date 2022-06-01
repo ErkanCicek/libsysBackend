@@ -41,4 +41,6 @@ public class BookLibService {
 			StandardCharsets.UTF_8), URLDecoder.decode(genreDesc, StandardCharsets.UTF_8));}
 	
 	public String deleteGenreByID(String genreID){return bookLibDao.deleteGenreByID(URLDecoder.decode(genreID));}
+	
+	public BookLib getIsBookAvailable(String isBookAvailable){return bookLibDao.getIsBookAvailable(String.valueOf(isBookAvailable));}
 }
