@@ -289,4 +289,11 @@ public class LibsysBackendApplication {
 		
 		groupRoomLibService.bookGroupRoom(separatedValues[1], separatedValues[2], separatedValues[3]);
 	}
+	
+	@GetMapping ("/getIsBookAvailable")
+	public String getIsBookAvailable(@RequestParam (value = "isBookAvailable", defaultValue = "incorrect input") String isBookAvailable){
+		bookLibService = context.getBean(BookLibService.class);
+		isBookAvailable = String.valueOf(bookLibService.getIsBookAvailable(isBookAvailable));
+		return isBookAvailable;
+	}
 }
