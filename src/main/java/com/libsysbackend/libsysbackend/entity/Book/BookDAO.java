@@ -9,8 +9,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +125,6 @@ public class BookDAO {
 	public String getBookByISBN(String isbn){
 		String query = "SELECT * FROM book WHERE ISBN = ? LIMIT 1";
 		Book book = this.jdbcTemplate.queryForObject(query, (rs, rowNum) -> new Book(
-				rs.getInt("bookid"),
 				rs.getString("ISBN"),
 				rs.getString("title"),
 				rs.getString("bookDesc"),
@@ -138,25 +135,22 @@ public class BookDAO {
 
 	}
 
-	public List<Book> getMostPopularAvailableBook(){
+	public String getMostPopularAvailableBook(){
 		SimpleJdbcCall getMostPopularBooks = new SimpleJdbcCall(this.jdbcTemplate).withProcedureName("getMostPopularBook")
-				.returningResultSet("books", new RowMapper<Book>() {
-					@Override
-					public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
-						Book book = new Book();
-						book.setISBN(rs.getString("ISBN"));
-						book.setTitle(rs.getString("title"));
-						book.setBookDesc(rs.getString("bookDesc"));
-						book.setGenreID(rs.getInt("genreID"));
-						book.setAuthorID(rs.getInt("authorId"));
-						book.setBookAvailable(true);
-						return book;
-					}
+				.returningResultSet("books", (RowMapper<Book>) (rs, rowNum) -> {
+					Book book = new Book();
+					book.setISBN(rs.getString("ISBN"));
+					book.setTitle(rs.getString("title"));
+					book.setBookDesc(rs.getString("bookDesc"));
+					book.setGenreID(rs.getInt("genreID"));
+					book.setAuthorID(rs.getInt("authorId"));
+					book.setBookAvailable(true);
+					return book;
 				});
 		Map<String, Object> out = getMostPopularBooks.execute();
 		@SuppressWarnings("unchecked") // The type is supposed to be a book
 		List<Book>bookList = (List<Book>) out.get("books");
-		return bookList;
+		return new Gson().toJson(bookList);
 	}
 	//Test
 }

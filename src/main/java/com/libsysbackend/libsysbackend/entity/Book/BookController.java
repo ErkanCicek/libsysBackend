@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "book/", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
@@ -84,7 +83,7 @@ public class BookController {
 	}
 
 	@GetMapping("get/mostPopularAvailableBook")
-	public List<Book> getMostPopularAvailableBook(){
+	public String getMostPopularAvailableBook(){
 		return this.bookService.getMostPopularAvailableBook();
 	}
 

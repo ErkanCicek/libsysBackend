@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 @Service
 public record BookService(BookDAO bookDAO) {
@@ -45,7 +44,7 @@ public record BookService(BookDAO bookDAO) {
 		return this.bookDAO.getBookByISBN(isbn);
 	}
 
-	public List<Book> getMostPopularAvailableBook(){
+	public String getMostPopularAvailableBook(){
 		return this.bookDAO.getMostPopularAvailableBook();
 	}
 }
