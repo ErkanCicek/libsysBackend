@@ -103,7 +103,6 @@ class BookLibDaoTest {
 		// Result
 		assertEquals(1, i);
 		Mockito.verify(jdbcTemplateMock).update(query,"1234", "Testbok", "Bör fungera", "1", "1", "1");
-		
 	}
 	
 	@Test

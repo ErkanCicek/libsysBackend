@@ -25,7 +25,7 @@ public class BorrowedBooksLibService {
 	public void loanBook(String borrowerSSN, String borrowedBookISBN){
 		borrowedBooksLibDao.loanBook(URLDecoder.decode(borrowerSSN), URLDecoder.decode(borrowedBookISBN));}
 	
-	public String returnBookByISBN(String bookISBN){return borrowedBooksLibDao.returnBookByISBN(String.valueOf(bookISBN));}
+	public String returnBookByISBN(String bookISBN){return borrowedBooksLibDao.returnBookByISBN(URLDecoder.decode(bookISBN, StandardCharsets.UTF_8));}
 	
 	public BorrowedBooksLib getBorrowedBookByISBN(String ISBN){return borrowedBooksLibDao.getBorrowedBookByISBN(URLDecoder.decode(ISBN,
 			StandardCharsets.UTF_8));}

@@ -43,7 +43,7 @@ public class BorrowedBooksLibDao {
 		return borrowedBooksList;
 	}
 	
-	public void loanBook(String borrowerSSN, String borrowedBookISBN)
+	public String loanBook(String borrowerSSN, String borrowedBookISBN)
 	{
 		// If a space (" ") was added from frontend it will be replaced by the phrase "WHITESPACEHEREX".
 		// This phrase is raplaced back with a space here so that the String takes its original form with spaces included
@@ -62,13 +62,15 @@ public class BorrowedBooksLibDao {
 		
 		SqlParameterSource in = new MapSqlParameterSource(inParameters);
 		
-		simpleJdbcCall.execute(in);
+		String returnable = String.valueOf(simpleJdbcCall.execute(in));
+		
+		return returnable;
 	}
 	
 	public String returnBookByISBN(String bookISBN) {
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("return_book");
-		Integer bookISBNToInt = Integer.parseInt(bookISBN);
-		String returnable = String.valueOf(simpleJdbcCall.execute(bookISBNToInt));
+
+		String returnable = String.valueOf(simpleJdbcCall.execute(bookISBN));
 		
 		return returnable;
 	}
